@@ -155,6 +155,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<p>In the era of generative AI, copyright won’t be enough. In fact, it’s the wrong place to look.</p>
 <p><strong>Tl;dr</strong></p>
 <ul>
 <li>LLMs and other GenAI models can reproduce significant chunks of training data;</li>
@@ -170,13 +171,15 @@ ul.task-list li input[type="checkbox"] {
 <p>He first tried to do so by becoming Cervantes, learning Spanish, and forgetting all the history since Cervantes wrote <em>Don Quixote</em>, among other things, but then decided it would make more sense to (re)write the text as Menard himself. The narrator tells us that “the Cervantes text and the Menard text are verbally identical, but the second is almost infinitely richer.” Perhaps this is an inversion of the ability of Generative AI models (LLMs, text-to-image, and more) to reproduce swathes of their training data without those chunks being explicitly stored in the model and its weights: the output is verbally identical to the original but reproduced probabilistically without any of the human blood, sweat, tears, and life experience that goes into the creation of human writing and cultural production.</p>
 <section id="generative-ai-has-a-plagiarism-problem" class="level2">
 <h2 class="anchored" data-anchor-id="generative-ai-has-a-plagiarism-problem"><strong>Generative AI Has a Plagiarism Problem</strong></h2>
-<p>ChatGPT, for example, doesn’t _memorize _its training data, per se. As Mike Loukides and Tim O’Reilly <a href="https://www.oreilly.com/radar/copyright-ai-and-provenance/">astutely point out</a>,</p>
+<p>ChatGPT, for example, doesn’t <em>memorize</em> its training data, per se. As Mike Loukides and Tim O’Reilly <a href="https://www.oreilly.com/radar/copyright-ai-and-provenance/">astutely point out</a>,</p>
 <blockquote class="blockquote">
 <p>A model prompted to write like Shakespeare may start with the word “To,” which makes it slightly more probable that it will follow that with “be,” which makes it slightly more probable that the next word will be “or” – and so forth.</p>
 </blockquote>
 <p>So then, as it turns out, next-word prediction (and all the sauce on top) can reproduce chunks of training data. This is the basis of the <a href="https://www.reuters.com/legal/transactional/ny-times-sues-openai-microsoft-infringing-copyrighted-work-2023-12-27/">NYTimes lawsuit against OpenAI</a>. <a href="https://chat.openai.com/c/2f11c99f-476b-446b-9b44-8cce57a20c9a">I have been able to convince ChatGPT to give me large chunks of novels that are in the public domain</a>, such as those on Project Gutenberg, including Pride and Prejudice. Researchers are finding <a href="https://not-just-memorization.github.io/extracting-training-data-from-chatgpt.html">more and more ways</a> to extract training data from ChatGPT and <a href="https://arxiv.org/abs/2301.13188">other models</a>. As far as other types of foundation models go, recent work by Gary Marcus and Reid Southern has shown that <a href="https://spectrum.ieee.org/midjourney-copyright">you can use Midjourney</a> (text-to-image) to generate images such as these:</p>
-<p><img src="images/image1.png" title="image_tooltip" class="img-fluid"></p>
-<p>[<a href="https://spectrum.ieee.org/midjourney-copyright">Image from here</a>]</p>
+<p><img src="images/image1.png" title="Generative AI Has a Plagiarism Problem" class="img-fluid"></p>
+<p style="text-align: center;">
+[<a href="https://spectrum.ieee.org/midjourney-copyright">Image from here</a>]
+</p>
 <p>This seems to be emerging as a feature, not a bug, and hopefully it’s obvious to you why they called their IEEE opinion piece <em>Generative AI Has a Visual Plagiarism Problem</em>.</p>
 </section>
 <section id="compression-transformation-hallucination-and-generation" class="level2">
@@ -184,16 +187,18 @@ ul.task-list li input[type="checkbox"] {
 <p><em>Training data isn’t stored in the model per se but large chunks of it are reconstructable, given the correct key (“prompt”).</em></p>
 <p>There are <a href="https://arstechnica.com/information-technology/2023/09/ai-language-models-can-exceed-png-and-flac-in-lossless-compression-says-study/">lots of</a> <a href="https://www.perplexity.ai/search/Do-you-consider-3ffGCMwYSgKna7X5.iIdTA?s=c">conversations</a> <a href="https://vickiboykis.com/2024/01/15/whats-new-with-ml-in-production/">about whether</a> <a href="https://www.crosslabs.org/blog/generative-models-arent-databases">or</a> <a href="https://arstechnica.com/information-technology/2023/09/ai-language-models-can-exceed-png-and-flac-in-lossless-compression-says-study/">not</a> <a href="https://venturebeat.com/ai/llms-are-surprisingly-great-at-compressing-images-and-audio-deepmind-researchers-find/">LLMs</a> (and machine learning, more generally) are forms of compression or not. In many ways, they are, but they also have generative capabilities that we don’t often associate with compression.</p>
 <p>Ted Chiang wrote a thoughtful piece for the New Yorker called <em><a href="https://www.newyorker.com/tech/annals-of-technology/chatgpt-is-a-blurry-jpeg-of-the-web">ChatGPT is a Blurry JPEG of the Web</a></em> that opens with the analogy of a photocopier making a slight error due to the way it compresses the digital image. It’s an interesting piece that I commend to you but one that makes me uncomfortable. To me, the analogy breaks down before it begins: for the photocopier, the error is a bug, whereas, for LLMs, all errors are features. Let me explain. Or, rather, <a href="https://x.com/karpathy/status/1733299213503787018?s=20">let Andrej Karpathy explain</a>:</p>
-<pre><code>I always struggle a bit [when] I'm asked about the "hallucination problem" in LLMs. Because, in some sense, hallucination is all LLMs do. They are dream machines.
-
-
-We direct their dreams with prompts. The prompts start the dream, and based on the LLM's hazy recollection of its training documents, most of the time the result goes someplace useful.
-
-
-It's only when the dreams go into deemed factually incorrect territory that we label it a "hallucination". It looks like a bug, but it's just the LLM doing what it always does.
-
-
-At the other end of the extreme consider a search engine. It takes the prompt and just returns one of the most similar "training documents" it has in its database, verbatim. You could say that this search engine has a "creativity problem" - it will never respond with something new. An LLM is 100% dreaming and has the hallucination problem. A search engine is 0% dreaming and has the creativity problem.</code></pre>
+<blockquote class="blockquote">
+<p>I always struggle a bit [when] I’m asked about the “hallucination problem” in LLMs. Because, in some sense, hallucination is all LLMs do. They are dream machines.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>We direct their dreams with prompts. The prompts start the dream, and based on the LLM’s hazy recollection of its training documents, most of the time the result goes someplace useful.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>It’s only when the dreams go into deemed factually incorrect territory that we label it a “hallucination”. It looks like a bug, but it’s just the LLM doing what it always does.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>At the other end of the extreme consider a search engine. It takes the prompt and just returns one of the most similar “training documents” it has in its database, verbatim. You could say that this search engine has a “creativity problem” - it will never respond with something new. An LLM is 100% dreaming and has the hallucination problem. A search engine is 0% dreaming and has the creativity problem.</p>
+</blockquote>
 <p>As a side note, building products that strike balances between Search and LLMs will be a highly productive area and companies such as <a href="https://www.perplexity.ai/">Perplexity AI</a> are also doing interesting work there.</p>
 <p>It’s interesting to me that, while LLMs are constantly hallucinating, they can also reproduce large chunks of training data, not just go “someplace useful”, as Karpathy put it (summarization, for example). So: is the training data “stored” in the model? Well, no, not quite. But also…. Yes?</p>
 <p>Let’s say I tear up a painting into a thousand pieces and put them back together in a mosaic: is the original painting stored in the mosaic? No, unless you know how to rearrange the pieces to get the original. You need a key. And, as it turns out, there happen to be certain prompts that act as keys that _unlock _training data.</p>
@@ -207,8 +212,7 @@ At the other end of the extreme consider a search engine. It takes the prompt an
 <p>Remember the context. Actors and writers were recently striking while <a href="https://www.bbc.com/news/world-us-canada-66332876">Netflix had an AI product manager job listing</a> with a base salary ranging from $300K to $900K USD. Also, note that we already live in a society where many creatives end up in advertising and marketing. These may be some of the first jobs on the chopping block due to ChatGPT and friends, particularly if macroeconomic pressure keeps leaning on us all. <a href="https://openai.com/research/gpts-are-gpts">And that’s according to OpenAI</a>!</p>
 <p><img src="images/image2.png" title="image_tooltip" class="img-fluid"></p>
 <p>Back to copyright: I don’t know enough about copyright law but it seems to me as though LLMs are “transformative” enough to have a fair use defense in the US. Also, <em>training</em> models doesn’t seem to me to infringe copyright because it doesn’t yet produce output! But perhaps it should infringe something: even when the collection of data is legal (which statistically it won’t entirely be for any web-scale corpus), it doesn’t mean it’s legitimate, and it definitely doesn’t mean there was informed consent.</p>
-<p>To see this, let’s consider another example, that of MegaFace. In <em><a href="https://www.nytimes.com/interactive/2019/10/11/technology/flickr-facial-recognition.html">How Photos of Your Kids Are</a></em></p>
-<p><em><a href="https://www.nytimes.com/interactive/2019/10/11/technology/flickr-facial-recognition.html">Powering Surveillance Technology</a></em>, the NYTimes reported that</p>
+<p>To see this, let’s consider another example, that of MegaFace. In <em><a href="https://www.nytimes.com/interactive/2019/10/11/technology/flickr-facial-recognition.html">How Photos of Your Kids Are Powering Surveillance Technology</a></em>, the NYTimes reported that</p>
 <blockquote class="blockquote">
 <p>One day in 2005, a mother in Evanston, Ill., joined Flickr. She uploaded some pictures of her children, Chloe and Jasper. Then she more or less forgot her account existed…</p>
 </blockquote>
