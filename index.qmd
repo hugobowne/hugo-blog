@@ -1,7 +1,7 @@
 ---
-title: "blog"
+description: "A collection of posts on AI, machine learning, and data science."
 listing:
-  contents: posts
+  contents: [posts/blogs.yml, posts]
   sort: "date desc"
   type: default
   categories: true
@@ -9,7 +9,8 @@ listing:
   filter-ui: false
 page-layout: full
 title-block-banner: true
+metadata-files: 
+  - posts/_metadata.yml
 ---
-
 
 

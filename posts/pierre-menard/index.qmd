@@ -6,10 +6,9 @@ categories: [GenAI, LLMs]
 image: "image.jpg"
 ---
 
+In the era of generative AI, copyright won’t be enough. In fact, it’s the wrong place to look.
 
 **Tl;dr**
-
-
 
 * LLMs and other GenAI models can reproduce significant chunks of training data;
 * Specific prompts seem to “unlock” training data;
@@ -28,20 +27,21 @@ He first tried to do so by becoming Cervantes, learning Spanish, and forgetting 
 
 ## **Generative AI Has a Plagiarism Problem**
 
-ChatGPT, for example, doesn’t _memorize _its training data, per se. As Mike Loukides and Tim O’Reilly [astutely point out](https://www.oreilly.com/radar/copyright-ai-and-provenance/),
+ChatGPT, for example, doesn’t _memorize_ its training data, per se. As Mike Loukides and Tim O’Reilly [astutely point out](https://www.oreilly.com/radar/copyright-ai-and-provenance/),
 
 
 > A model prompted to write like Shakespeare may start with the word “To,” which makes it slightly more probable that it will follow that with “be,” which makes it slightly more probable that the next word will be “or” – and so forth.
 
-So then, as it turns out, next-word prediction (and all the sauce on top) can reproduce chunks of training data. This is the basis of the [NYTimes lawsuit against OpenAI](https://www.reuters.com/legal/transactional/ny-times-sues-openai-microsoft-infringing-copyrighted-work-2023-12-27/). [I have been able to convince ChatGPT to give me large chunks of novels that are in the public domain](https://chat.openai.com/c/2f11c99f-476b-446b-9b44-8cce57a20c9a), such as those on Project Gutenberg, including Pride and Prejudice. Researchers are finding [more and more ways](https://not-just-memorization.github.io/extracting-training-data-from-chatgpt.html) to extract training data from ChatGPT and [other models](https://arxiv.org/abs/2301.13188). As far as other types of foundation models go, recent work by Gary Marcus and Reid Southern has shown that [you can use Midjourney](https://spectrum.ieee.org/midjourney-copyright) (text-to-image) to generate images such as these:
+So then, as it turns out, next-word prediction (and all the sauce on top) can reproduce chunks of training data. This is the basis of the [NYTimes lawsuit against OpenAI](https://www.reuters.com/legal/transactional/ny-times-sues-openai-microsoft-infringing-copyrighted-work-2023-12-27/). [I have been able to convince ChatGPT to give me large chunks of novels that are in the public domain](https://chat.openai.com/c/2f11c99f-476b-446b-9b44-8cce57a20c9a), such as those on Project Gutenberg, including Pride and Prejudice. Researchers are finding [more and more ways](https://not-just-memorization.github.io/extracting-training-data-from-chatgpt.html) to extract training data from ChatGPT and [other models](https://arxiv.org/abs/2301.13188). As far as other types of foundation models go, recent work by Gary Marcus and Reid Southern has shown that [you can use Midjourney](https://spectrum.ieee.org/midjourney-copyright) (text-to-image) to generate images such as these[^1]:
 
 
-![](images/image1.png "image_tooltip")
+![](images/image1.png "Generative AI Has a Plagiarism Problem")
+
+<p style="text-align: center;">[[Image from here](https://spectrum.ieee.org/midjourney-copyright)]</p>
 
 
-[[Image from here](https://spectrum.ieee.org/midjourney-copyright)]
+This seems to be emerging as a feature, not a bug, and hopefully it’s obvious to you why they called their IEEE opinion piece _Generative AI Has a Visual Plagiarism Problem_. And the space is moving quickly: [SORA](https://openai.com/sora), OpenAI’s text-to-video model, is yet to be released and [has already taken the world by storm](https://www.technologyreview.com/2024/02/15/1088401/openai-amazing-new-generative-ai-video-model-sora/).
 
-This seems to be emerging as a feature, not a bug, and hopefully it’s obvious to you why they called their IEEE opinion piece _Generative AI Has a Visual Plagiarism Problem_.
 
 
 ## **Compression, Transformation, Hallucination, and Generation**
@@ -50,25 +50,26 @@ _Training data isn’t stored in the model per se but large chunks of it are rec
 
 There are [lots of](https://arstechnica.com/information-technology/2023/09/ai-language-models-can-exceed-png-and-flac-in-lossless-compression-says-study/) [conversations](https://www.perplexity.ai/search/Do-you-consider-3ffGCMwYSgKna7X5.iIdTA?s=c) [about whether](https://vickiboykis.com/2024/01/15/whats-new-with-ml-in-production/) [or](https://www.crosslabs.org/blog/generative-models-arent-databases) [not](https://arstechnica.com/information-technology/2023/09/ai-language-models-can-exceed-png-and-flac-in-lossless-compression-says-study/) [LLMs](https://venturebeat.com/ai/llms-are-surprisingly-great-at-compressing-images-and-audio-deepmind-researchers-find/) (and machine learning, more generally) are forms of compression or not. In many ways, they are, but they also have generative capabilities that we don’t often associate with compression.
 
-Ted Chiang wrote a thoughtful piece for the New Yorker called _[ChatGPT is a Blurry JPEG of the Web](https://www.newyorker.com/tech/annals-of-technology/chatgpt-is-a-blurry-jpeg-of-the-web)_ that opens with the analogy of a photocopier making a slight error due to the way it compresses the digital image. It’s an interesting piece that I commend to you but one that makes me uncomfortable. To me, the analogy breaks down before it begins: for the photocopier, the error is a bug, whereas, for LLMs, all errors are features. Let me explain. Or, rather, [let Andrej Karpathy explain](https://x.com/karpathy/status/1733299213503787018?s=20):
+Ted Chiang wrote a thoughtful piece for the New Yorker called _[ChatGPT is a Blurry JPEG of the Web](https://www.newyorker.com/tech/annals-of-technology/chatgpt-is-a-blurry-jpeg-of-the-web)_ that opens with the analogy of a photocopier making a slight error due to the way it compresses the digital image. It’s an interesting piece that I commend to you but one that makes me uncomfortable. To me, the analogy breaks down before it begins: firstly, LLMs don’t merely blur, but perform highly non-linear transformations, which means you can’t just squint and get a sense of the original; secondly, for the photocopier, the error is a bug, whereas, for LLMs, all errors are features. Let me explain. Or, rather, [let Andrej Karpathy explain](https://x.com/karpathy/status/1733299213503787018?s=20):
 
 
-    I always struggle a bit [when] I'm asked about the "hallucination problem" in LLMs. Because, in some sense, hallucination is all LLMs do. They are dream machines.
+
+> I always struggle a bit [when] I'm asked about the "hallucination problem" in LLMs. Because, in some sense, hallucination is all LLMs do. They are dream machines.
 
 
-    We direct their dreams with prompts. The prompts start the dream, and based on the LLM's hazy recollection of its training documents, most of the time the result goes someplace useful.
+> We direct their dreams with prompts. The prompts start the dream, and based on the LLM's hazy recollection of its training documents, most of the time the result goes someplace useful.
 
 
-    It's only when the dreams go into deemed factually incorrect territory that we label it a "hallucination". It looks like a bug, but it's just the LLM doing what it always does.
+> It's only when the dreams go into deemed factually incorrect territory that we label it a "hallucination". It looks like a bug, but it's just the LLM doing what it always does.
 
 
-    At the other end of the extreme consider a search engine. It takes the prompt and just returns one of the most similar "training documents" it has in its database, verbatim. You could say that this search engine has a "creativity problem" - it will never respond with something new. An LLM is 100% dreaming and has the hallucination problem. A search engine is 0% dreaming and has the creativity problem.
+> At the other end of the extreme consider a search engine. It takes the prompt and just returns one of the most similar "training documents" it has in its database, verbatim. You could say that this search engine has a "creativity problem" - it will never respond with something new. An LLM is 100% dreaming and has the hallucination problem. A search engine is 0% dreaming and has the creativity problem.
 
 As a side note, building products that strike balances between Search and LLMs will be a highly productive area and companies such as [Perplexity AI](https://www.perplexity.ai/) are also doing interesting work there. 
 
-It’s interesting to me that, while LLMs are constantly hallucinating, they can also reproduce large chunks of training data, not just go “someplace useful”, as Karpathy put it (summarization, for example). So: is the training data “stored” in the model? Well, no, not quite. But also…. Yes? 
+It’s interesting to me that, while LLMs are constantly "hallucinating"[^2], they can also reproduce large chunks of training data, not just go “someplace useful”, as Karpathy put it (summarization, for example). So: is the training data “stored” in the model? Well, no, not quite. But also…. Yes? 
 
-Let’s say I tear up a painting into a thousand pieces and put them back together in a mosaic: is the original painting stored in the mosaic? No, unless you know how to rearrange the pieces to get the original. You need a key. And, as it turns out, there happen to be certain prompts that act as keys that _unlock _training data.
+Let’s say I tear up a painting into a thousand pieces and put them back together in a mosaic: is the original painting stored in the mosaic? No, unless you know how to rearrange the pieces to get the original. You need a key. And, as it turns out, there happen to be certain prompts that act as keys that _unlock _training data (for insiders, you may recognize this as extraction attacks, a form of [adversarial machine learning](https://bdtechtalks.com/2021/04/23/machine-learning-membership-inference-attacks/)).
 
 This also has implications for whether Generative AI can create anything particularly novel: I have high hopes that it can but I think that is still yet to be demonstrated. There are also significant and serious concerns about what happens when [we continually train models on the outputs of other models](https://pluralistic.net/2023/02/16/tweedledumber/#easily-spooked).
 
@@ -81,19 +82,16 @@ Now I don’t think this necessarily has implications for whether LLMs are infri
 
 Early predecessors of modern copyright law, such as [the Statute of Anne](https://www.britannica.com/topic/Statute-of-Anne) (1710) in England, were created to incentivize writers to write and to incentivize more cultural production. Up until this point, the Crown had granted exclusive rights to print certain works to the Stationers' Company, effectively creating a monopoly, and there weren’t financial incentives to write. So, even if OpenAI and their frenemies aren’t breaching copyright law, what type of cultural production are we and aren’t we incentivizing by not zooming out and looking at as many of the externalities here as possible?
 
-Remember the context. Actors and writers were recently striking while [Netflix had an AI product manager job listing](https://www.bbc.com/news/world-us-canada-66332876) with a base salary ranging from $300K to $900K USD. Also, note that we already live in a society where many creatives end up in advertising and marketing. These may be some of the first jobs on the chopping block due to ChatGPT and friends, particularly if macroeconomic pressure keeps leaning on us all. [And that’s according to OpenAI](https://openai.com/research/gpts-are-gpts)!
+Remember the context. Actors and writers were recently striking while [Netflix had an AI product manager job listing](https://www.bbc.com/news/world-us-canada-66332876) with a base salary ranging from $300K to $900K USD[^3]. Also, note that we already live in a society where many creatives end up in advertising and marketing. These may be some of the first jobs on the chopping block due to ChatGPT and friends, particularly if macroeconomic pressure keeps leaning on us all. [And that’s according to OpenAI](https://openai.com/research/gpts-are-gpts)!
 
 
 
-![](images/image2.png "image_tooltip")
+![](images/image2.png "Occupational exposure, according to OpenAI")
 
 
 Back to copyright: I don’t know enough about copyright law but it seems to me as though LLMs are “transformative” enough to have a fair use defense in the US. Also, _training_ models doesn’t seem to me to infringe copyright because it doesn’t yet produce output! But perhaps it should infringe something: even when the collection of data is legal (which statistically it won’t entirely be for any web-scale corpus), it doesn’t mean it’s legitimate, and it definitely doesn’t mean there was informed consent.
 
-To see this, let’s consider another example, that of MegaFace. In _[How Photos of Your Kids Are](https://www.nytimes.com/interactive/2019/10/11/technology/flickr-facial-recognition.html)_
-
-_[Powering Surveillance Technology](https://www.nytimes.com/interactive/2019/10/11/technology/flickr-facial-recognition.html)_, the NYTimes reported that
-
+To see this, let’s consider another example, that of MegaFace. In _[How Photos of Your Kids Are Powering Surveillance Technology](https://www.nytimes.com/interactive/2019/10/11/technology/flickr-facial-recognition.html)_, the NYTimes reported that
 
 > One day in 2005, a mother in Evanston, Ill., joined Flickr. She uploaded some pictures of her children, Chloe and Jasper. Then she more or less forgot her account existed…
 
@@ -120,12 +118,14 @@ I should probably also define what I mean by “legitimate/illegitimate” or at
 
 _It’s about what type of society you want to live in_
 
-I think it’s entirely possible that the NYTimes and OpenAI will settle out of court: OpenAI has strong incentives to do so and the Times likely also has short-term incentives to. However, the Times has also proven itself adept at playing the long game. Don’t fall into the trap of thinking this is merely about the specific case at hand. To zoom out again, we live in a society where mainstream journalism has been carved out and gutted by the Internet, Search, and Social Media. The NYTimes is one of the last serious publications standing and they’ve worked incredibly hard and cleverly in their “digital transformation” since the advent of the internet.[^1]
+I think it’s entirely possible that the NYTimes and OpenAI will settle out of court: OpenAI has strong incentives to do so and the Times likely also has short-term incentives to. However, the Times has also proven itself adept at playing the long game. Don’t fall into the trap of thinking this is merely about the specific case at hand. To zoom out again, we live in a society where mainstream journalism has been carved out and gutted by the Internet, Search, and Social Media. The NYTimes is one of the last serious publications standing and they’ve worked incredibly hard and cleverly in their “digital transformation” since the advent of the internet.[^10]
 
 Platforms such as Google have inserted themselves as middlemen between producers and consumers in a manner that has killed the business models of many of the content producers. They’re also disingenuous about what they’re doing: when the Australian Government was thinking of making Google pay news outlets that it linked to in Search, [Google’s response was](https://youtu.be/dHypeuHePEI?si=UJrnAJpBQeivn_sv):
 
 
 > Now remember, we don't show full news articles, we just show you where you can go and help you to get there. Paying for links breaks the way search engines work, and it undermines how the web works, too. **Let me try and say it another way. Imagine your friend asks for a coffee shop recommendation. So you tell them about a few nearby so they can choose one and go get a coffee. But then you get a bill to pay all the coffee shops, simply because you mentioned a few. **When you put a price on linking to certain information, you break the way search engines work, and you no longer have a free and open web. We're not against a new law, but we need it to be a fair one. Google has an alternative solution that supports journalism. It's called Google News Showcase.
+
+Let me be clear: Google has done incredible work in “organizing the world’s information” but here they’re disingenuous in comparing themselves to a friend offering advice on coffee shops: friends don’t tend to have global data, AI, and infrastructural pipelines, nor are they business predicated on surveillance capitalism.
 
 Copyright aside, the ability of Generative AI to displace creatives is a real threat and I’m asking a real question: _do we want to live in a society where there aren’t many incentives for humans to write, paint, and make music?_ Borges may not write today, given current incentives. If you don’t particularly care about Borges, perhaps you care about Philip K. Dick, Christopher Nolan, Salman Rushdie, or the Magic Realists, who were all influenced by his work.
 
@@ -135,5 +135,8 @@ Beyond all the human aspects of cultural production, don’t we also still want 
 <!-- Footnotes themselves at the bottom. -->
 ## Notes
 
-[^1]:
+[^1]: It’s ironic that, when syndicating this essay on [O'Reilly Radar](https://www.oreilly.com/radar/chatgpt-author-of-the-quixote/), we didn’t reproduce the images from Marcus’ article because we didn’t want to risk violating copyright–a risk that Midjourney apparently ignores and perhaps a risk that even IEEE and the authors took on!
+[^2]:  I’m putting this in quotation marks as I’m still not entirely comfortable with the implications of antropomorphizing LLMs in this manner.
+[^3]: My intention isn’t to suggest that Netflix is all bad. Far from it, in fact -- Netflix has also been hugely powerful in providing a massive distribution channel to creatives across the globe. It’s complicated.
+[^10]:
      Also note that the outcome of this case could have significant impact for the future of OSS and open weight foundation models, something I hope to write about in future.

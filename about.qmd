@@ -1,5 +1,5 @@
 ---
-title: "Hugo's blog"
+title: "About"
 image: profile.jpg
 about:
   template: jolla
@@ -16,4 +16,4 @@ about:
 
 ---
 
-About this blog
+I'm a data scientist, writer, educator & podcaster. My interests include promoting data & AI literacy/fluency, helping to spread data skills through organizations and society and lowering the barrier to entry for data science, analysis, and machine learning. I'm currently Head of Developer Relations at [Outerbounds](https://outerbounds.com/), a company committed to building infrastructure that provides a solid foundation for machine learning and AI applications of all shapes and sizes. I am also the host of the industry podcast [Vanishing Gradients](https://vanishinggradients.fireside.fm/). Find out more [here](https://hugobowne.github.io/).

@@ -3,14 +3,14 @@ project:
   output-dir: docs
 
 website:
-  title: "blog"
+  title: "Hugo's blog"
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/hugobowne
       - icon: twitter
-        href: https://twitter.com
+        href: https://twitter.com/hugobowne
 format:
   html:
     theme: cosmo
