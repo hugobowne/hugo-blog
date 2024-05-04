@@ -1,0 +1,14 @@
+- title: "What is Causal Inference?"
+  path: https://www.oreilly.com/radar/what-is-causal-inference/
+  date: 2022-07-28
+  categories: [Causal inference]
+  description: |
+    An Introduction for Data Scientists and Machine Learning Engineers.
+  image: "https://www.oreilly.com/radar/wp-content/uploads/sites/3/2022/01/wici_0108.png"
+- title: Lights, GenAI, Action -- Building Systems with Generative Video
+  path: https://outerbounds.com/blog/lights-genai-action/
+  date: 2023-12-10
+  categories: [GenAI, Metaflow]
+  description: |
+   We created a workflow to generate hundreds of videos with Stable Video Diffusion in one command.
+  image: "https://outerbounds.com/blog/cover/lights-genai-action.jpg"
