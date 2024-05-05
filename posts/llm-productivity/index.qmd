@@ -1,0 +1,183 @@
+---
+title: "Using ChatGPT to make your life and work easier"
+author: "Hugo Bowne-Anderson"
+date: "2024-05-06"
+draft: true
+categories: [GenAI, LLMs]
+image: "image.jpg"
+---
+
+**Tl;dr**
+
+Large Language Models (LLMs), such as ChatGPT and Claude, are known for their text generation and conversational abilities. But they are also good at other tasks that can help time-starved non-technical working professionals save time, such as text summarization and analysis. 
+
+_Have a 60-page PDF you don’t have time to read and want summarized? A meeting you need action items from? Or an online video you need transcribed and summarized? Would you like them to then generate a PDF, text file, or spreadsheet of the results?_
+
+ChatGPT will do these tasks for you. It can also do market research, competitive analyses, email drafting, ad campaign ideation, and much more. This blog post will take you through many such examples, including relevant conversations with ChatGPT: the goal is to give you the tools to get LLMs to do what they’re good at, freeing you up to do what you’re good at.
+
+
+## Things ChatGPT can do that perhaps you don’t know about
+
+LLMs offer lots of potential “productivity hacks” for working professionals:
+
+
+
+1. **Meeting Summarization and Action Item Generation:** After recording a meeting or providing notes, generative AI can summarize the key discussions, decisions, and action items.
+2. **Competitive Analysis and Market Research:** By feeding generative AI tools with queries and data sources, they can conduct preliminary market research and competitive analysis, providing summaries of market trends, competitor strategies, and potential opportunities.
+3. **Automated Email Drafting and Management:** Generative AI can help draft emails based on brief inputs, saving time on composing responses or outreach messages. For instance, by summarizing the key points you wish to communicate, the AI can generate a well-crafted email.
+4. **Project Proposal and Report Generation:** Generative AI can help draft project proposals and reports by inputting data points and objectives, significantly reducing the time required for these tasks. This includes generating structured documents with executive summaries, analyses, and conclusions based on the provided data, which can be further customized as needed.
+5. **Content Creation and Marketing Material Development:** Generative AI can assist in creating high-quality content, such as blog posts, social media content, and marketing materials, with minimal input. By providing a brief outline or key points, the AI can generate drafts that can be fine-tuned, enabling professionals to maintain an active online presence without dedicating extensive time to content creation.
+
+Let’s now look at summarization, move on to analysis, and then combine these with the better-known generative capabilities of LLMs.
+
+
+## Summarization
+
+LLMs will summarize lots of things you may not have the time to read, such as PDFs, blog posts, websites, and YouTube videos.
+
+
+### Summarizing documents
+
+If you want to summarize a document you don’t have time to read, you can upload it to ChatGPT. [Here’s an example](https://chat.openai.com/share/4ced77f8-5a70-4650-95ea-36d46f21f2b7). Have a look and notice that you can get the summary in any number of forms. For example, I asked it for
+
+
+
+* A basic summary
+* An executive summary appropriate for business leaders
+* An ELI5 (explain it like I’m 5) summary
+
+
+![](images/image1.png "image_tooltip")
+
+
+
+### Summarizing blog posts and websites
+
+We can [also summarize websites](https://chat.openai.com/share/1f34a534-d2f2-4b8f-a144-3330e35af17b) such as Andrei Karpathy’s seminal [Software 2.0 blog post](https://karpathy.medium.com/software-2-0-a64152b37c35). Note that I had to nudge ChatGPT to do this, however! Don’t be afraid to do this: it’s a conversation.
+
+
+![](images/image2.png "image_tooltip")
+
+
+We can also take it a step further and [get ChatGPT to recommend popular essays by someone we’re interested in and then summarize some of the most popular ones](https://chat.openai.com/share/a49f3e5b-a8a2-4835-8ee0-41743f2b277c). 
+
+
+
+![](images/image3.png "image_tooltip")
+
+
+In this example, I also got ChatGPT to [generate a PDF of its summaries for me](https://drive.google.com/file/d/1y7PeoDKJYPlGjxUzMx5mIrbt89rcKkcE/view?usp=sharing), in case I wanted to read later or share.
+
+
+### Summarizing meetings, YouTube videos, and so on
+
+You can also summarize anything else that you have in text. _One of the big time savers for many is meeting summarization and action item generation_. To do this in ChatGPT, you need to get the meeting audio/video into text form: 
+
+
+
+* if you record meetings using Zoom, you can “[enable transcription](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064927)” in Zoom;
+* If you share videos with colleagues using Slack, it will generate a transcript for you;
+* You can upload audio and/or video to services such as [Descript](https://www.descript.com/) and [Otter.ai](https://otter.ai/home) to generate transcripts.
+
+You can then upload your transcript to Claude or ChatGPT to generate a summary and action items. You can also ask your LLM specific questions to drill down into next steps for yourself, for example!
+
+A couple of notes:
+
+
+
+* Depending on the length of your transcript, you may need to divide it into chunks: you can even ask ChatGPT how many words it will generally accept and even negotiate with it ;) 
+* Transcription services, such as Otter.ai mentioned above, already offer AI-generated summaries – this will become the norm! Currently, the most useful options I’ve found for customizability involve uploading transcripts into ChatGPT but I’d be somewhat surprised if this remained the case for too long.
+
+So how about summarizing online videos? 
+
+
+
+* First, I need to get the transcript into ChatGPT. I suppose I could rip the video and use Descript to generate the transcript. Well, I actually used to do this. 
+* Then I discovered [a Chrome extension called Glasp](https://glasp.co/youtube-summary) that transcribes YT videos directly into instances of Claude or ChatGPT for you: go get it!
+
+
+## Analysis of texts
+
+Next up, I have found LLMs useful for the analysis of texts. For example, I work in early-stage startup land in an almost absurdly busy space. So I’ve found using LLMs for market research and competitive analysis. I will give a toy example instead of examples from my day job.
+
+
+## Market Research and Competitive Analysis
+
+Let’s say I wanted to start a business that provides an AI tutor for every math(s) student in the world. [I told ChatGPT this and asked for help with a competitive analysis and market research](https://chat.openai.com/share/e61a0549-0272-4fed-b53b-7e4f470b519a).
+
+ChatGPT came back immediately with many ideas for both, such as
+
+
+![](images/image4.png "image_tooltip")
+
+
+Notice it provided _an analysis method and also suggested some competitors for us to consider_. I decided to first embark on a direct competitor analysis and directed ChatGPT to perform such an analysis and provide the results to me in a table:
+
+
+![](images/image5.png "image_tooltip")
+
+
+If you’re technically minded, also note that ChatGPT gives me the Python code that it used to generate this table, if I’d like it!
+
+
+![](images/image6.png "image_tooltip")
+
+
+I also thought it would be useful to have the analysis as a document I could share with colleagues so I asked ChatGPT to generate a spreadsheet for me, not being quite sure if it could and/or would: and it generated a .csv file! So I downloaded the .csv and put it in a Google sheet that [you can find here](https://docs.google.com/spreadsheets/d/1t__AHeFYu_MtQnpIBLifSBkfPXkH2D7WM2RN2VDj8ro/edit?usp=sharing).
+
+Do check out [the relevant chat I had for more details](https://chat.openai.com/share/e61a0549-0272-4fed-b53b-7e4f470b519a), including some more market research, in which ChatGPT helps me with a back-of-the-envelope calculation to estimate the TAM (Total Addressable Market):
+
+
+
+![](images/image7.png "image_tooltip")
+
+
+
+## Generation
+
+Text generation is one of the better-known capabilities of LLMs:
+
+
+
+* **Email generation:** give Claude or ChatGPT bullet points, and they can generate emails for you – play around with getting them to draft emails in different tones (e.g. to a manager, make it more formal, or informal)
+* **Project proposals and report generation:** similarly, you can get LLMs to generate proposals and reports, based on talking points or even a conversation with the LLM – if you have a specific structure for the report, such as 3 sections X, Y, and Z, with maximum 500 words each, tell it and the LLM will generally make it happen!
+* **Content Creation and Marketing Material Development: **particularly at the ideation stage, LLMs can be used for generating copy and images for all types of content creation.
+
+I encourage you to play around with the ones you find most useful! 
+
+
+### Generating an ad campaign
+
+As a fun and somewhat dystopic illustrative example, I asked ChatGPT to create a “marketing campaign for a product that inserts ads in people's dreams.” it came up with the following:
+
+![](images/image8.png "image_tooltip")
+
+
+I also asked it to generate some potential marketing images for me:
+
+
+![](images/image9.png "image_tooltip")
+
+
+
+![](images/image10.png "image_tooltip")
+
+
+
+## What to do next
+
+The next steps are simple: think about what types of tasks that LLMs could make easier for you. _Start by thinking along the lines of text summary, analysis, and generation_. Then have conversations with ChatGPT and/or Claude to see what’s possible!
+
+Several notes to keep in mind:
+
+
+
+* You may have noticed that ChatGPT required coaxing at some points in our conversations (at one point, it even said “I can’t do this”, I replied “Yes, it can” and it did!) – so persevere with it – it’s surprising what’s possible!
+* It is commonly accepted that ChatGPT [got lazier](https://www.theguardian.com/commentisfree/2024/jan/12/chatgpt-problems-lazy) [for some time](https://www.reddit.com/r/OpenAI/comments/18qq8fx/chatgpt_40_has_become_lazy_beyond_acceptance_for/) (some speculated that this happened last December and it may have been intentional as it’s when the internet itself gets lazier, with the holiday season – [Sam Altman even came out in February and said ChatGPT should be much “less lazy now”](https://www.businessinsider.com/chatgpt-openai-sam-altman-chatbot-less-lazy-after-users-complain-2024-2); to this point, it’s important to note that ChatGPT has not been specifically designed for most of the tasks I’ve discussed in this post, but there are so many things that are possible;
+* This space is moving rapidly: I doubt we’ll be playing around with ChatGPT for a long time to achieve such tasks as discussed above; very many products will be released to solve many of these problems: 
+    * we have seen that Otter.ai summarizes transcripts;
+    * [Copy.ai](https://www.copy.ai/) is doing interesting things for content creation and go-to-market strategies;
+    * [Microsoft Copilot](https://www.microsoft.com/en-au/microsoft-365/business/copilot-for-microsoft-365?ef_id=_k_Cj0KCQiArrCvBhCNARIsAOkAGcVZrUqz0YiOIF7LppO-9aNRq-CA2_E1YHprZ5a3CGBXm9DT0UmhXnoaAlvREALw_wcB_k_&OCID=AIDcmmhhfcclp6_SEM__k_Cj0KCQiArrCvBhCNARIsAOkAGcVZrUqz0YiOIF7LppO-9aNRq-CA2_E1YHprZ5a3CGBXm9DT0UmhXnoaAlvREALw_wcB_k_&gad_source=1&gclid=Cj0KCQiArrCvBhCNARIsAOkAGcVZrUqz0YiOIF7LppO-9aNRq-CA2_E1YHprZ5a3CGBXm9DT0UmhXnoaAlvREALw_wcB) is already incorporating a lot of the capabilities we’ve covered here but don’t be fooled by thinking there’s one obvious winner – this will likely end up more like the streaming wars;
+* Be careful with your data! I wouldn’t currently upload any sensitive material to ChatGPT, for example: we really don’t know what OpenAI does with it; Copy.ai, for example, claims to use only LLMs that have zero-retention data policies; this space is going to be wild!
+
+So the takeaway is simple: go play around and be more productive! Also, if you’re interested in learning about more capabilities of generative AI, [check out my next blog post on building GenAI apps that include a lot more than LLMs, such as those involving video, audio, and images](https://docs.google.com/document/d/1OA9e4ZSyBsk1kg_vnVFm4LVJcZYT-jfPh0qhoOhVWdE/edit?usp=sharing).

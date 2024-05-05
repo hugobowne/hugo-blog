@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Hugo Bowne-Anderson">
+<meta name="dcterms.date" content="2024-05-06">
+
+<title>Hugo’s blog - Using ChatGPT to make your life and work easier</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Hugo’s blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hugobowne"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/hugobowne"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Using ChatGPT to make your life and work easier</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">GenAI</div>
+                <div class="quarto-category">LLMs</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Hugo Bowne-Anderson </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 6, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p><strong>Tl;dr</strong></p>
+<p>Large Language Models (LLMs), such as ChatGPT and Claude, are known for their text generation and conversational abilities. But they are also good at other tasks that can help time-starved non-technical working professionals save time, such as text summarization and analysis.</p>
+<p><em>Have a 60-page PDF you don’t have time to read and want summarized? A meeting you need action items from? Or an online video you need transcribed and summarized? Would you like them to then generate a PDF, text file, or spreadsheet of the results?</em></p>
+<p>ChatGPT will do these tasks for you. It can also do market research, competitive analyses, email drafting, ad campaign ideation, and much more. This blog post will take you through many such examples, including relevant conversations with ChatGPT: the goal is to give you the tools to get LLMs to do what they’re good at, freeing you up to do what you’re good at.</p>
+<section id="things-chatgpt-can-do-that-perhaps-you-dont-know-about" class="level2">
+<h2 class="anchored" data-anchor-id="things-chatgpt-can-do-that-perhaps-you-dont-know-about">Things ChatGPT can do that perhaps you don’t know about</h2>
+<p>LLMs offer lots of potential “productivity hacks” for working professionals:</p>
+<ol type="1">
+<li><strong>Meeting Summarization and Action Item Generation:</strong> After recording a meeting or providing notes, generative AI can summarize the key discussions, decisions, and action items.</li>
+<li><strong>Competitive Analysis and Market Research:</strong> By feeding generative AI tools with queries and data sources, they can conduct preliminary market research and competitive analysis, providing summaries of market trends, competitor strategies, and potential opportunities.</li>
+<li><strong>Automated Email Drafting and Management:</strong> Generative AI can help draft emails based on brief inputs, saving time on composing responses or outreach messages. For instance, by summarizing the key points you wish to communicate, the AI can generate a well-crafted email.</li>
+<li><strong>Project Proposal and Report Generation:</strong> Generative AI can help draft project proposals and reports by inputting data points and objectives, significantly reducing the time required for these tasks. This includes generating structured documents with executive summaries, analyses, and conclusions based on the provided data, which can be further customized as needed.</li>
+<li><strong>Content Creation and Marketing Material Development:</strong> Generative AI can assist in creating high-quality content, such as blog posts, social media content, and marketing materials, with minimal input. By providing a brief outline or key points, the AI can generate drafts that can be fine-tuned, enabling professionals to maintain an active online presence without dedicating extensive time to content creation.</li>
+</ol>
+<p>Let’s now look at summarization, move on to analysis, and then combine these with the better-known generative capabilities of LLMs.</p>
+</section>
+<section id="summarization" class="level2">
+<h2 class="anchored" data-anchor-id="summarization">Summarization</h2>
+<p>LLMs will summarize lots of things you may not have the time to read, such as PDFs, blog posts, websites, and YouTube videos.</p>
+<section id="summarizing-documents" class="level3">
+<h3 class="anchored" data-anchor-id="summarizing-documents">Summarizing documents</h3>
+<p>If you want to summarize a document you don’t have time to read, you can upload it to ChatGPT. <a href="https://chat.openai.com/share/4ced77f8-5a70-4650-95ea-36d46f21f2b7">Here’s an example</a>. Have a look and notice that you can get the summary in any number of forms. For example, I asked it for</p>
+<ul>
+<li>A basic summary</li>
+<li>An executive summary appropriate for business leaders</li>
+<li>An ELI5 (explain it like I’m 5) summary</li>
+</ul>
+<p><img src="images/image1.png" title="image_tooltip" class="img-fluid"></p>
+</section>
+<section id="summarizing-blog-posts-and-websites" class="level3">
+<h3 class="anchored" data-anchor-id="summarizing-blog-posts-and-websites">Summarizing blog posts and websites</h3>
+<p>We can <a href="https://chat.openai.com/share/1f34a534-d2f2-4b8f-a144-3330e35af17b">also summarize websites</a> such as Andrei Karpathy’s seminal <a href="https://karpathy.medium.com/software-2-0-a64152b37c35">Software 2.0 blog post</a>. Note that I had to nudge ChatGPT to do this, however! Don’t be afraid to do this: it’s a conversation.</p>
+<p><img src="images/image2.png" title="image_tooltip" class="img-fluid"></p>
+<p>We can also take it a step further and <a href="https://chat.openai.com/share/a49f3e5b-a8a2-4835-8ee0-41743f2b277c">get ChatGPT to recommend popular essays by someone we’re interested in and then summarize some of the most popular ones</a>.</p>
+<p><img src="images/image3.png" title="image_tooltip" class="img-fluid"></p>
+<p>In this example, I also got ChatGPT to <a href="https://drive.google.com/file/d/1y7PeoDKJYPlGjxUzMx5mIrbt89rcKkcE/view?usp=sharing">generate a PDF of its summaries for me</a>, in case I wanted to read later or share.</p>
+</section>
+<section id="summarizing-meetings-youtube-videos-and-so-on" class="level3">
+<h3 class="anchored" data-anchor-id="summarizing-meetings-youtube-videos-and-so-on">Summarizing meetings, YouTube videos, and so on</h3>
+<p>You can also summarize anything else that you have in text. <em>One of the big time savers for many is meeting summarization and action item generation</em>. To do this in ChatGPT, you need to get the meeting audio/video into text form:</p>
+<ul>
+<li>if you record meetings using Zoom, you can “<a href="https://support.zoom.com/hc/en/article?id=zm_kb&amp;sysparm_article=KB0064927">enable transcription</a>” in Zoom;</li>
+<li>If you share videos with colleagues using Slack, it will generate a transcript for you;</li>
+<li>You can upload audio and/or video to services such as <a href="https://www.descript.com/">Descript</a> and <a href="https://otter.ai/home">Otter.ai</a> to generate transcripts.</li>
+</ul>
+<p>You can then upload your transcript to Claude or ChatGPT to generate a summary and action items. You can also ask your LLM specific questions to drill down into next steps for yourself, for example!</p>
+<p>A couple of notes:</p>
+<ul>
+<li>Depending on the length of your transcript, you may need to divide it into chunks: you can even ask ChatGPT how many words it will generally accept and even negotiate with it ;)</li>
+<li>Transcription services, such as Otter.ai mentioned above, already offer AI-generated summaries – this will become the norm! Currently, the most useful options I’ve found for customizability involve uploading transcripts into ChatGPT but I’d be somewhat surprised if this remained the case for too long.</li>
+</ul>
+<p>So how about summarizing online videos?</p>
+<ul>
+<li>First, I need to get the transcript into ChatGPT. I suppose I could rip the video and use Descript to generate the transcript. Well, I actually used to do this.</li>
+<li>Then I discovered <a href="https://glasp.co/youtube-summary">a Chrome extension called Glasp</a> that transcribes YT videos directly into instances of Claude or ChatGPT for you: go get it!</li>
+</ul>
+</section>
+</section>
+<section id="analysis-of-texts" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-of-texts">Analysis of texts</h2>
+<p>Next up, I have found LLMs useful for the analysis of texts. For example, I work in early-stage startup land in an almost absurdly busy space. So I’ve found using LLMs for market research and competitive analysis. I will give a toy example instead of examples from my day job.</p>
+</section>
+<section id="market-research-and-competitive-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="market-research-and-competitive-analysis">Market Research and Competitive Analysis</h2>
+<p>Let’s say I wanted to start a business that provides an AI tutor for every math(s) student in the world. <a href="https://chat.openai.com/share/e61a0549-0272-4fed-b53b-7e4f470b519a">I told ChatGPT this and asked for help with a competitive analysis and market research</a>.</p>
+<p>ChatGPT came back immediately with many ideas for both, such as</p>
+<p><img src="images/image4.png" title="image_tooltip" class="img-fluid"></p>
+<p>Notice it provided <em>an analysis method and also suggested some competitors for us to consider</em>. I decided to first embark on a direct competitor analysis and directed ChatGPT to perform such an analysis and provide the results to me in a table:</p>
+<p><img src="images/image5.png" title="image_tooltip" class="img-fluid"></p>
+<p>If you’re technically minded, also note that ChatGPT gives me the Python code that it used to generate this table, if I’d like it!</p>
+<p><img src="images/image6.png" title="image_tooltip" class="img-fluid"></p>
+<p>I also thought it would be useful to have the analysis as a document I could share with colleagues so I asked ChatGPT to generate a spreadsheet for me, not being quite sure if it could and/or would: and it generated a .csv file! So I downloaded the .csv and put it in a Google sheet that <a href="https://docs.google.com/spreadsheets/d/1t__AHeFYu_MtQnpIBLifSBkfPXkH2D7WM2RN2VDj8ro/edit?usp=sharing">you can find here</a>.</p>
+<p>Do check out <a href="https://chat.openai.com/share/e61a0549-0272-4fed-b53b-7e4f470b519a">the relevant chat I had for more details</a>, including some more market research, in which ChatGPT helps me with a back-of-the-envelope calculation to estimate the TAM (Total Addressable Market):</p>
+<p><img src="images/image7.png" title="image_tooltip" class="img-fluid"></p>
+</section>
+<section id="generation" class="level2">
+<h2 class="anchored" data-anchor-id="generation">Generation</h2>
+<p>Text generation is one of the better-known capabilities of LLMs:</p>
+<ul>
+<li><strong>Email generation:</strong> give Claude or ChatGPT bullet points, and they can generate emails for you – play around with getting them to draft emails in different tones (e.g.&nbsp;to a manager, make it more formal, or informal)</li>
+<li><strong>Project proposals and report generation:</strong> similarly, you can get LLMs to generate proposals and reports, based on talking points or even a conversation with the LLM – if you have a specific structure for the report, such as 3 sections X, Y, and Z, with maximum 500 words each, tell it and the LLM will generally make it happen!</li>
+<li><strong>Content Creation and Marketing Material Development: </strong>particularly at the ideation stage, LLMs can be used for generating copy and images for all types of content creation.</li>
+</ul>
+<p>I encourage you to play around with the ones you find most useful!</p>
+<section id="generating-an-ad-campaign" class="level3">
+<h3 class="anchored" data-anchor-id="generating-an-ad-campaign">Generating an ad campaign</h3>
+<p>As a fun and somewhat dystopic illustrative example, I asked ChatGPT to create a “marketing campaign for a product that inserts ads in people’s dreams.” it came up with the following:</p>
+<p><img src="images/image8.png" title="image_tooltip" class="img-fluid"></p>
+<p>I also asked it to generate some potential marketing images for me:</p>
+<p><img src="images/image9.png" title="image_tooltip" class="img-fluid"></p>
+<p><img src="images/image10.png" title="image_tooltip" class="img-fluid"></p>
+</section>
+</section>
+<section id="what-to-do-next" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-do-next">What to do next</h2>
+<p>The next steps are simple: think about what types of tasks that LLMs could make easier for you. <em>Start by thinking along the lines of text summary, analysis, and generation</em>. Then have conversations with ChatGPT and/or Claude to see what’s possible!</p>
+<p>Several notes to keep in mind:</p>
+<ul>
+<li>You may have noticed that ChatGPT required coaxing at some points in our conversations (at one point, it even said “I can’t do this”, I replied “Yes, it can” and it did!) – so persevere with it – it’s surprising what’s possible!</li>
+<li>It is commonly accepted that ChatGPT <a href="https://www.theguardian.com/commentisfree/2024/jan/12/chatgpt-problems-lazy">got lazier</a> <a href="https://www.reddit.com/r/OpenAI/comments/18qq8fx/chatgpt_40_has_become_lazy_beyond_acceptance_for/">for some time</a> (some speculated that this happened last December and it may have been intentional as it’s when the internet itself gets lazier, with the holiday season – <a href="https://www.businessinsider.com/chatgpt-openai-sam-altman-chatbot-less-lazy-after-users-complain-2024-2">Sam Altman even came out in February and said ChatGPT should be much “less lazy now”</a>; to this point, it’s important to note that ChatGPT has not been specifically designed for most of the tasks I’ve discussed in this post, but there are so many things that are possible;</li>
+<li>This space is moving rapidly: I doubt we’ll be playing around with ChatGPT for a long time to achieve such tasks as discussed above; very many products will be released to solve many of these problems:
+<ul>
+<li>we have seen that Otter.ai summarizes transcripts;</li>
+<li><a href="https://www.copy.ai/">Copy.ai</a> is doing interesting things for content creation and go-to-market strategies;</li>
+<li><a href="https://www.microsoft.com/en-au/microsoft-365/business/copilot-for-microsoft-365?ef_id=_k_Cj0KCQiArrCvBhCNARIsAOkAGcVZrUqz0YiOIF7LppO-9aNRq-CA2_E1YHprZ5a3CGBXm9DT0UmhXnoaAlvREALw_wcB_k_&amp;OCID=AIDcmmhhfcclp6_SEM__k_Cj0KCQiArrCvBhCNARIsAOkAGcVZrUqz0YiOIF7LppO-9aNRq-CA2_E1YHprZ5a3CGBXm9DT0UmhXnoaAlvREALw_wcB_k_&amp;gad_source=1&amp;gclid=Cj0KCQiArrCvBhCNARIsAOkAGcVZrUqz0YiOIF7LppO-9aNRq-CA2_E1YHprZ5a3CGBXm9DT0UmhXnoaAlvREALw_wcB">Microsoft Copilot</a> is already incorporating a lot of the capabilities we’ve covered here but don’t be fooled by thinking there’s one obvious winner – this will likely end up more like the streaming wars;</li>
+</ul></li>
+<li>Be careful with your data! I wouldn’t currently upload any sensitive material to ChatGPT, for example: we really don’t know what OpenAI does with it; Copy.ai, for example, claims to use only LLMs that have zero-retention data policies; this space is going to be wild!</li>
+</ul>
+<p>So the takeaway is simple: go play around and be more productive! Also, if you’re interested in learning about more capabilities of generative AI, <a href="https://docs.google.com/document/d/1OA9e4ZSyBsk1kg_vnVFm4LVJcZYT-jfPh0qhoOhVWdE/edit?usp=sharing">check out my next blog post on building GenAI apps that include a lot more than LLMs, such as those involving video, audio, and images</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
