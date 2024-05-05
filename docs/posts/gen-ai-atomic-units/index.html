@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Hugo Bowne-Anderson">
+<meta name="dcterms.date" content="2024-05-09">
+
+<title>Hugo’s blog - Getting Started with Generative AI for Everyone</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Hugo’s blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hugobowne"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/hugobowne"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Getting Started with Generative AI for Everyone</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">GenAI</div>
+                <div class="quarto-category">LLMs</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Hugo Bowne-Anderson </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 9, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p><strong>Tl;dr</strong></p>
+<p>With the advent of Generative AI, more people than ever (technical and non-technical) can build interesting, fun, and productivity-increasing AI apps and workflows. There are several challenges:</p>
+<ul>
+<li>Lots of people aren’t aware of what current tools are capable of and what tools are available;</li>
+<li>People don’t know how to combine such tools to build apps and workflows;</li>
+<li>People aren’t quite aware of the necessary generative AI mindset to do so.</li>
+</ul>
+<p>In this blog post, we lay out many of the current capabilities of genAI tools, suggest ways to combine them, and spell out the genAI mindset of combining atomic units. In addition, we propose a simple protocol for building such apps and workflows:</p>
+<ol type="1">
+<li>Identify a basic MVP of what you want to build;</li>
+<li>Break it down into atomic units;</li>
+<li>Decide on a tool for each atomic unit;</li>
+<li>Stitch them together!</li>
+</ol>
+<p>Whether it’s YouTube video summarization, generating images with captions, building workflow automation tools, generating email templates, or writing short stories accompanied by images, we hope that people can use this protocol to build apps and workflows that help them at work and in their daily lives.</p>
+<section id="the-genai-mindset-combining-atomic-units" class="level2">
+<h2 class="anchored" data-anchor-id="the-genai-mindset-combining-atomic-units">The GenAI mindset: combining atomic units</h2>
+<p>We recently released an episode of Vanishing Gradients about accessibility in generative AI. Both Johno and Hugo are particularly excited about how all the new tooling allows non-technical people to use machine learning and AI models through the ability to interact with them using natural language.</p>
+<p>There are also new elements of how we even think about working with such tools. Consider the different mindsets of how we build machine learning, deep learning, and AI models:</p>
+<ul>
+<li><strong>ML mindset: </strong>how can I generate useful features for prediction?</li>
+<li><strong>DL mindset: </strong>how can I express what I want in terms of some loss function to optimize?</li>
+<li><strong>GenAI mindset: </strong>how can I build applications using atomic generative AI units?</li>
+</ul>
+<p>For an example of the latter, consider a task Hugo does a lot of in his day job: summarizing YouTube videos (see <a href="https://outerbounds.com/blog/ml-at-adept-autodesk-epignosis/">here</a> and <a href="https://outerbounds.com/blog/ml-at-amazon-dtn-realtor/">here</a>, for examples). To do this, you can break the task down into atomic units:</p>
+<ul>
+<li><em>Speech-to-text</em>: to get a transcript of the video;</li>
+<li><em>Text-to-text</em>: to summarize the transcript.</li>
+</ul>
+<p>Now anybody with differing levels of technical and hacker prowess can do this:</p>
+<ul>
+<li>If you’re into writing Python code, accessing cloud compute, and playing around with foundation models, you could use OpenAI’s OSS speech-to-text Whisper model and then any number of OSS LLMs for summarization, e.g.&nbsp;Llama2 or Mixtral;</li>
+<li>If you don’t want to write any code, you could use products such as Otter.ai or Descript to get the transcription and then use Claude or ChatGPT for the summarization;</li>
+<li>If you’re lazy like Hugo, you may have discovered that some legend has built a <a href="https://glasp.co/youtube-summary">Chrome plugin called Glasp</a> that essentially does this for you: Glasp performs the speech-to-text and pipes the result into Claude or ChatGPT, which then performs the text-to-text summarization.</li>
+</ul>
+</section>
+<section id="whats-currently-possible-with-genai" class="level2">
+<h2 class="anchored" data-anchor-id="whats-currently-possible-with-genai">What’s currently possible with GenAI</h2>
+<p>We have a public awareness issue: many people don’t even know what’s currently possible and what the atomic units are! For example, you can speak to chatGPT and have it create images, which combines speech-to-text and text-to-image. So what type of models are there?</p>
+<ul>
+<li>Text-to-text, such as <a href="https://chat.openai.com/">ChatGPT,</a> <a href="https://claude.ai">Claude</a>, and so many open-source options;</li>
+<li>Text-to-speech and speech-to-text, such as <a href="https://openai.com/research/whisper">Whisper</a>, <a href="https://otter.ai/">Otter.ai</a>, and <a href="https://www.descript.com/">Descript;</a></li>
+<li>Text-to-image, such as <a href="https://stability.ai/news/stable-diffusion-3">Stable Diffusion</a>, <a href="https://www.midjourney.com">Midjourney</a>, <a href="https://pika.art/home">Pika Labs</a>, <a href="https://runwayml.com/">Runway ml</a>, and <a href="https://openai.com/dall-e-3">DALL·E 3</a>;</li>
+<li>Image-to-image, such as <a href="https://runwayml.com/">Runway ml</a>;</li>
+<li>Text-to-video, such as <a href="https://stability.ai/news/stable-video-diffusion-open-ai-video-model">Stable Video Diffusion</a>, <a href="https://runwayml.com/">Runway ml</a>, and <a href="https://openai.com/sora">Sora</a>;</li>
+<li>Image-to-video, such as <a href="https://stability.ai/news/stable-video-diffusion-open-ai-video-model">Stable Video Diffusion</a> and <a href="https://runwayml.com/">Runway ml</a>;</li>
+<li>Text-to-music, such as <a href="https://www.suno.ai/">Suno AI</a>.</li>
+</ul>
+<p>Hugo generated this list using ChatGPT and you can see the full conversation for other ideas <a href="https://chat.openai.com/share/7c723c1a-f4eb-41fb-a868-06d945637575">here</a>. It’s worth mentioning that the examples above sun the gamut from free to paid to open source, so feel free to jump in and play around with all types of models. Also note that some of these types of models are fairly obvious and single-use (text-to-speech or image) while others are a lot more configurable (e.g., LLMs can be used for semi-arbitrary text transformations, such as summarization, conversation, and more).</p>
+</section>
+<section id="an-example-of-combining-atomic-ai-units" class="level2">
+<h2 class="anchored" data-anchor-id="an-example-of-combining-atomic-ai-units">An example of combining atomic AI units</h2>
+<p>In their conversation, Johno gives a nice example: he wants to programmatically pull an image from the internet, then use a vision and text model to generate a silly quote to add to it:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hxZX6fBi-W8?si=rmc1FeR2azpc6Kq1&amp;start=3192" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+<ol type="1">
+<li><strong>Get image:</strong> He first asked ChatGPT how he could use Python to pull a random high-quality photo from <a href="https://unsplash.com/">Unsplash</a> – ChatGPT gave him some code and instructions, which worked;</li>
+<li><strong>Get quote: </strong>He used <a href="https://platform.openai.com/docs/guides/vision">OpenAI’s docs</a> and quickstart examples to get an image-to-text model to generate a quote;</li>
+<li><strong>Combine quote and image: </strong>He asked ChatGPT to give him Python code to do this and it delivered!</li>
+</ol>
+<p>Note that Steps 1 and 3 don’t actually require any AI models but Johno cleverly used ChatGPT to give him the code for these steps.</p>
+<p>So why are we telling you all of this? Well, we want to encourage everyone to experiment with all of these burgeoning tools, both for productivity and for pleasure!</p>
+</section>
+<section id="how-to-get-started-building-your-own-genai-apps-and-workflows" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-get-started-building-your-own-genai-apps-and-workflows">How to get started building your own GenAI apps and workflows</h2>
+<p>The protocol we suggest is as follows:</p>
+<ol type="1">
+<li>Identify a basic MVP of what you want to build (e.g.&nbsp;YouTube video summarization, generating images with captions, building workflow automation tools, generating email templates, or writing short stories accompanied by images);</li>
+<li>Break it down into atomic units;</li>
+<li>Decide on a tool for each atomic unit;</li>
+<li>Stitch them together!</li>
+</ol>
+<p>We also strongly encourage you to speak with an AI assistant such as ChatGPT or Claude about any of these steps also, even merely to ideate about Step 1!</p>
+<p>We now suggest a few ways to get started with this process, for those who don’t code, for those who, and for those who want to chat with an AI to get some inspiration :)</p>
+<section id="explore-whats-possible-without-code-on-replicate" class="level3">
+<h3 class="anchored" data-anchor-id="explore-whats-possible-without-code-on-replicate">Explore what’s possible without code on Replicate</h3>
+<p>Go to Replicate’s <a href="https://replicate.com/explore">explore page</a> and, well, explore! Hugo is just looking now and it’s all so much fun:</p>
+<p><img src="images/image1.png" title="image_tooltip" class="img-fluid"></p>
+<p>You have a sticker maker, high-quality image generator, a way to play with Google’s Gemma model, a Mixtral assistant, a fast Whisper model, and an image-to-image model which, once you click through, shows you how to turn this image</p>
+<p><img src="images/image2.png" title="image_tooltip" class="img-fluid"></p>
+<p>Into this!</p>
+<p><img src="images/image3.png" title="image_tooltip" class="img-fluid"></p>
+</section>
+<section id="explore-whats-possible-with-code" class="level3">
+<h3 class="anchored" data-anchor-id="explore-whats-possible-with-code">Explore what’s possible with code</h3>
+<p>Do the same but <a href="https://huggingface.co/models">explore HuggingFace models</a> and <a href="https://huggingface.co/spaces">HuggingFace spaces</a>. Something you can do here is look at the code for existing spaces for inspiration - in many cases you can copy-paste (or git clone the whole space) to get a working starting point. Many of them also have <a href="https://www.gradio.app/">Gradio</a> demos you can play around with immediately!</p>
+</section>
+<section id="chat-with-chatgpt-or-claude-about-whats-possible" class="level3">
+<h3 class="anchored" data-anchor-id="chat-with-chatgpt-or-claude-about-whats-possible">Chat with ChatGPT or Claude about what’s possible</h3>
+<p>Seriously. You saw above how Johno chatted with ChatGPT to achieve a basic task. Have a chat with an LLM about how to do things you’d like to. If you can’t think of anything, ask it to help you think of something! You can even ask it to ask you about your interests and to help you think about what you could build.</p>
+<p>Hugo actually just played around with ChatGPT to do something along these lines and ended up writing a story and generating an image to accompany it with ChatGPT. <a href="https://chat.openai.com/share/19c36010-3dc5-4c56-b106-2ba5fdee8230">You can check out the conversation here</a>, if you’d like, and <a href="https://gist.github.com/hugobowne/ac5ded9a553ba918ea660e1a36e76708">the resulting notebook here</a> :)</p>
+<p>There are a few things to note about the conversation Hugo had with ChatGPT here:</p>
+<ul>
+<li>Hugo made some slight prompting errors by not being specific enough such as writing “yes lets go through it step by step please” instead of “let’s start with step 1 now”;</li>
+<li>Several models ChatGPT suggested didn’t end up working! Hugo had to probe ChatGPT in order to get the correct code: this is common! Just like conversations with people, it’s not uncommon to have to ask several times (to have a conversation) to get the information you’re really looking for;</li>
+<li>Hugo likes writing code in Jupyter notebooks so suggested to ChatGPT that they use notebooks and Python code: feel free to suggest what makes you most comfortable (but also try to push yourself!).</li>
+</ul>
+<p>To the final point, a large part of the podcast conversation is about how people who don’t write code can leverage GenAI models these days. Having said that, we encourage people who don’t code to learn a little, if the feel like it, and LLMs make it easier than ever to do so.</p>
+<p>Jensen Huang, CEO of Nvidia, “argues that we should stop saying kids should learn to code. He argues the rise of AI means we can replace programming languages with human language prompts thus enabling everyone to be a programmer.”</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="en" dir="ltr">
+Jensen Huang, CEO of Nvidia, argues that we should stop saying kids should learn to code. <br><br>He argues the rise of AI means we can replace programming languages with human language prompts thus enabling everyone to be a programmer. <br><br>AI will kill coding.<a href="https://t.co/SxK9twhEby">pic.twitter.com/SxK9twhEby</a>
+</p>
+— Dare Obasanjo🐀 (<span class="citation" data-cites="Carnage4Life">@Carnage4Life</span>) <a href="https://twitter.com/Carnage4Life/status/1761483377365152234?ref_src=twsrc%5Etfw">February 24, 2024</a>
+</blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>We don’t necessarily agree with this characterization. Not everybody needs to be a software engineer but learning a bit of coding pays serious dividends and likely will in the future, even just to stitch atomic GenAI units together.</p>
+</section>
+<section id="tell-us-what-you-did" class="level3">
+<h3 class="anchored" data-anchor-id="tell-us-what-you-did">Tell us what you did</h3>
+<p>We’d be excited to hear from you about what you were able to build or even just play around with! Feel free to ping Hugo on Twitter <span class="citation" data-cites="hugobowne">@hugobowne</span> to let him know :)</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
