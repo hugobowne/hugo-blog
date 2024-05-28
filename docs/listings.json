@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/gen-ai-atomic-units/index.html",
+      "/posts/llm-productivity/index.html",
       "/posts/pierre-menard/index.html"
     ]
   }

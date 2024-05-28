@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Hugo Bowne-Anderson">
-<meta name="dcterms.date" content="2024-05-09">
+<meta name="author" content="Hugo Bowne-Anderson and Jonathan Whitaker">
+<meta name="dcterms.date" content="2024-05-28">
+<meta name="description" content="With the advent of Generative AI, more people than ever (technical and non-technical) can build interesting, fun, and productivity-increasing AI apps and workflows. In this post, we introduce the GenAI mindset of combining atomic units to build AI-powered apps and workflows">
 
 <title>Hugo’s blog - Getting Started with Generative AI for Everyone</title>
 <style>
@@ -116,7 +117,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Getting Started with Generative AI for Everyone</h1>
-                                <div class="quarto-categories">
+                  <div>
+        <div class="description">
+          With the advent of Generative AI, more people than ever (technical and non-technical) can build interesting, fun, and productivity-increasing AI apps and workflows. In this post, we introduce the GenAI mindset of combining atomic units to build AI-powered apps and workflows
+        </div>
+      </div>
+                          <div class="quarto-categories">
                 <div class="quarto-category">GenAI</div>
                 <div class="quarto-category">LLMs</div>
               </div>
@@ -129,14 +135,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Hugo Bowne-Anderson </p>
+               <p>Hugo Bowne-Anderson and Jonathan Whitaker </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 9, 2024</p>
+        <p class="date">May 28, 2024</p>
       </div>
     </div>
     
@@ -170,9 +176,14 @@ ul.task-list li input[type="checkbox"] {
 <li>Stitch them together!</li>
 </ol>
 <p>Whether it’s YouTube video summarization, generating images with captions, building workflow automation tools, generating email templates, or writing short stories accompanied by images, we hope that people can use this protocol to build apps and workflows that help them at work and in their daily lives.</p>
+<p>This post is intended for those familiar with the basic capabilities of LLMs such as ChatGPT and Claude. For those who want to find out more about how such LLMs can be used to help with the following, <a href="https://hugobowne.github.io/hugo-blog/posts/llm-productivity/">check this post out</a>:</p>
+<blockquote class="blockquote">
+<p><em>Have a 60-page PDF you don’t have time to read and want summarized? A meeting you need action items from? Or an online video you need transcribed and summarized? Would you like them to then generate a PDF, text file, or spreadsheet of the results?</em></p>
+</blockquote>
+<p>It was great to co-write this post with <a href="https://johnowhitaker.dev/">Johno Whitaker</a>!</p>
 <section id="the-genai-mindset-combining-atomic-units" class="level2">
 <h2 class="anchored" data-anchor-id="the-genai-mindset-combining-atomic-units">The GenAI mindset: combining atomic units</h2>
-<p>We recently released an episode of Vanishing Gradients about accessibility in generative AI. Both Johno and Hugo are particularly excited about how all the new tooling allows non-technical people to use machine learning and AI models through the ability to interact with them using natural language.</p>
+<p>We recently released <a href="https://vanishinggradients.fireside.fm/24">an episode of Vanishing Gradients</a> about accessibility in generative AI. Both Johno and Hugo are particularly excited about how all the new tooling allows non-technical people to use machine learning and AI models through the ability to interact with them using natural language.</p>
 <p>There are also new elements of how we even think about working with such tools. Consider the different mindsets of how we build machine learning, deep learning, and AI models:</p>
 <ul>
 <li><strong>ML mindset: </strong>how can I generate useful features for prediction?</li>
@@ -208,8 +219,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="an-example-of-combining-atomic-ai-units" class="level2">
 <h2 class="anchored" data-anchor-id="an-example-of-combining-atomic-ai-units">An example of combining atomic AI units</h2>
 <p>In their conversation, Johno gives a nice example: he wants to programmatically pull an image from the internet, then use a vision and text model to generate a silly quote to add to it:</p>
+<div style="text-align: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/hxZX6fBi-W8?si=rmc1FeR2azpc6Kq1&amp;start=3192" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
 </iframe>
+</div>
 <ol type="1">
 <li><strong>Get image:</strong> He first asked ChatGPT how he could use Python to pull a random high-quality photo from <a href="https://unsplash.com/">Unsplash</a> – ChatGPT gave him some code and instructions, which worked;</li>
 <li><strong>Get quote: </strong>He used <a href="https://platform.openai.com/docs/guides/vision">OpenAI’s docs</a> and quickstart examples to get an image-to-text model to generate a quote;</li>
@@ -229,6 +242,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>We also strongly encourage you to speak with an AI assistant such as ChatGPT or Claude about any of these steps also, even merely to ideate about Step 1!</p>
 <p>We now suggest a few ways to get started with this process, for those who don’t code, for those who, and for those who want to chat with an AI to get some inspiration :)</p>
+<p><strong>Note:</strong> Although currently we are stitching together a variety of tools and models, we are currently seeing the rise of more and more multimodal tools, which are systems or platforms that can process and integrate multiple types of data or input modalities, such as text, images, audio, and video. It’s eminently possible and perhaps likely that we’ll be using such tools for many steps of this process in the future (as opposed to stitching many tools together), but the mindset will remain the same.</p>
 <section id="explore-whats-possible-without-code-on-replicate" class="level3">
 <h3 class="anchored" data-anchor-id="explore-whats-possible-without-code-on-replicate">Explore what’s possible without code on Replicate</h3>
 <p>Go to Replicate’s <a href="https://replicate.com/explore">explore page</a> and, well, explore! Hugo is just looking now and it’s all so much fun:</p>
@@ -254,6 +268,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>To the final point, a large part of the podcast conversation is about how people who don’t write code can leverage GenAI models these days. Having said that, we encourage people who don’t code to learn a little, if the feel like it, and LLMs make it easier than ever to do so.</p>
 <p>Jensen Huang, CEO of Nvidia, “argues that we should stop saying kids should learn to code. He argues the rise of AI means we can replace programming languages with human language prompts thus enabling everyone to be a programmer.”</p>
+<center>
 <blockquote class="twitter-tweet blockquote">
 <p lang="en" dir="ltr">
 Jensen Huang, CEO of Nvidia, argues that we should stop saying kids should learn to code. <br><br>He argues the rise of AI means we can replace programming languages with human language prompts thus enabling everyone to be a programmer. <br><br>AI will kill coding.<a href="https://t.co/SxK9twhEby">pic.twitter.com/SxK9twhEby</a>
@@ -261,11 +276,12 @@ Jensen Huang, CEO of Nvidia, argues that we should stop saying kids should learn
 — Dare Obasanjo🐀 (<span class="citation" data-cites="Carnage4Life">@Carnage4Life</span>) <a href="https://twitter.com/Carnage4Life/status/1761483377365152234?ref_src=twsrc%5Etfw">February 24, 2024</a>
 </blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</center>
 <p>We don’t necessarily agree with this characterization. Not everybody needs to be a software engineer but learning a bit of coding pays serious dividends and likely will in the future, even just to stitch atomic GenAI units together.</p>
 </section>
 <section id="tell-us-what-you-did" class="level3">
 <h3 class="anchored" data-anchor-id="tell-us-what-you-did">Tell us what you did</h3>
-<p>We’d be excited to hear from you about what you were able to build or even just play around with! Feel free to ping Hugo on Twitter <span class="citation" data-cites="hugobowne">@hugobowne</span> to let him know :)</p>
+<p>We’d be excited to hear from you about what you were able to build or even just play around with! Feel free to ping Hugo on Twitter <a href="https://x.com/hugobowne"><span class="citation" data-cites="hugobowne">@hugobowne</span></a> to let him know :)</p>
 
 
 </section>
