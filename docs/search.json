@@ -60,7 +60,7 @@
     "href": "posts/local-llms/index.html",
     "title": "10 Brief Arguments for Local LLMs and AI",
     "section": "",
-    "text": "I recently hosted a session with Simon Willison for Hamel Husain and Dan Becker’s Mastering LLMs: A Conference For Developers & Data Scientists. Simon’s talk, which I encourage you to watch, was all about\nYou can watch it here and read more about it here:\nWhat I actually want to write about is spurred by Dan Becker asking me why I like using local LLMs and I don’t think I had a satisfactory answer at the time. I went away, thought about it, chatted with a couple LLMs (Claude and ChatGPT) about it, and came up with the following:"
+    "text": "I recently hosted a session with Simon Willison for Hamel Husain and Dan Becker’s Mastering LLMs: A Conference For Developers & Data Scientists. Simon’s talk, which I encourage you to watch, was all about\nYou can watch it here and read more about it here:\nWhat I actually want to write about is spurred by Dan Becker asking me why I like using local LLMs and I don’t think I had a satisfactory answer at the time. To explore this topic, I chatted with Claude and ChatGPT, which generated the following list of points based on our conversations:"
   },
   {
     "objectID": "posts/local-llms/index.html#data-privacy-and-security",
