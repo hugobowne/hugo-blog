@@ -56,6 +56,90 @@
     "text": "What to do next\nThe next steps are simple: think about what types of tasks that LLMs could make easier for you. Start by thinking along the lines of text summary, analysis, and generation. Then have conversations with ChatGPT and/or Claude to see what’s possible!\nSeveral notes to keep in mind:\n\nMy prediction is that the types of affordances discussed here will be increasingly embedded in products: e.g. you won’t need to go directly to ChatGPT but you’ll be able to do such tasks directly in a Microsoft Office product;\nYou may have noticed that ChatGPT required coaxing at some points in our conversations (at one point, it even said “I can’t do this”, I replied “Yes, it can” and it did!) – so persevere with it – it’s surprising what’s possible!\nIt is commonly accepted that ChatGPT got lazier for some time (some speculated that this happened last December and it may have been intentional as it’s when the internet itself gets lazier, with the holiday season – Sam Altman even came out in February and said ChatGPT should be much “less lazy now”; to this point, it’s important to note that ChatGPT has not been specifically designed for most of the tasks I’ve discussed in this post, but there are so many things that are possible;\nThis space is moving rapidly: I doubt we’ll be playing around with ChatGPT for a long time to achieve such tasks as discussed above; very many products will be released to solve many of these problems:\n\nwe have seen that Otter.ai summarizes transcripts;\nCopy.ai is doing interesting things for content creation and go-to-market strategies;\nMicrosoft Copilot is already incorporating a lot of the capabilities we’ve covered here but don’t be fooled by thinking there’s one obvious winner – this will likely end up more like the streaming wars;\n\nBe careful with your data! I wouldn’t currently upload any sensitive material to ChatGPT, for example: we really don’t know what OpenAI does with it; Copy.ai, for example, claims to use only LLMs that have zero-retention data policies; this space is going to be wild!\n\nSo the takeaway is simple: go play around and be more productive! Also, if you’re interested in learning about more capabilities of generative AI, check out my next blog post with Johno Whitaker on building GenAI apps that include a lot more than LLMs, such as those involving video, audio, and images.\n\nTell me what you did\nI’d be excited to hear from you about what you were able to build or even just play around with! Feel free to ping Hme on Twitter @hugobowne to let me know :)"
   },
   {
+    "objectID": "posts/local-llms/index.html",
+    "href": "posts/local-llms/index.html",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "",
+    "text": "I recently hosted a session with Simon Willison for Hamel Husain and Dan Becker’s Mastering LLMs: A Conference For Developers & Data Scientists. Simon’s talk, which I encourage you to watch, which was all about\nYou can watch it here and read more about it here:\nWhat I actually want to write about is spurred by Dan Becker asking me why I like using local LLMs and I don’t think I had a satisfactory answer at the time. I went away, thought about it, chatted with a couple LLMs (Claude and ChatGPT) about it, and came up with the following:"
+  },
+  {
+    "objectID": "posts/local-llms/index.html#data-privacy-and-security",
+    "href": "posts/local-llms/index.html#data-privacy-and-security",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "1. Data Privacy and Security",
+    "text": "1. Data Privacy and Security\n\nControl Over Data: Running models locally ensures that sensitive data never leaves your machine, providing higher levels of privacy and security.\nCompliance: For industries with strict data regulations, local processing helps in adhering to compliance requirements."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#performance-and-latency",
+    "href": "posts/local-llms/index.html#performance-and-latency",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "2. Performance and Latency",
+    "text": "2. Performance and Latency\n\nReduced Latency: Local models eliminate the need for network requests, resulting in faster response times, especially important for real-time applications.\nConsistency: Local processing avoids variability in latency that can occur due to network issues or server-side processing delays."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#cost-efficiency",
+    "href": "posts/local-llms/index.html#cost-efficiency",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "3. Cost Efficiency",
+    "text": "3. Cost Efficiency\n\nLower Costs: Avoiding cloud-based service fees can be cost-effective, especially for frequent or large-scale usage.\nPredictable Expenses: Costs are more predictable as they mainly involve hardware and occasional software updates rather than ongoing cloud service charges."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#customization-and-control",
+    "href": "posts/local-llms/index.html#customization-and-control",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "4. Customization and Control",
+    "text": "4. Customization and Control\n\nTailored Solutions: Local deployment allows for greater customization of the models and integration with specific workflows.\nFull Control: Users have full control over the environment, configurations, and updates, which is beneficial for debugging and optimizing performance."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#offline-capabilities",
+    "href": "posts/local-llms/index.html#offline-capabilities",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "5. Offline Capabilities",
+    "text": "5. Offline Capabilities\n\nOffline Access: Local models can function without an internet connection, which is crucial for remote locations or scenarios with unreliable connectivity.\nDisaster Recovery: Ensures that applications remain operational even during network outages or cloud service disruptions."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#learning-and-experimentation",
+    "href": "posts/local-llms/index.html#learning-and-experimentation",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "6. Learning and Experimentation",
+    "text": "6. Learning and Experimentation\n\nHands-On Experience: Running models locally provides a deeper understanding of how they work, beneficial for learning and research.\nExperimentation: Facilitates rapid experimentation and prototyping without the constraints or delays of cloud-based services."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#open-source-and-community-support",
+    "href": "posts/local-llms/index.html#open-source-and-community-support",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "7. Open Source and Community Support",
+    "text": "7. Open Source and Community Support\n\nCommunity Innovation: Many local deployment tools are open source, fostering community contributions and rapid innovation.\nTransparency: Open source tools provide transparency in how models are implemented and executed, which can build trust and facilitate customization."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#scalability-for-development",
+    "href": "posts/local-llms/index.html#scalability-for-development",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "8. Scalability for Development",
+    "text": "8. Scalability for Development\n\nDevelopment and Testing: Local environments are ideal for development and testing before deploying to production environments, ensuring robustness and reliability.\nResource Optimization: Allows for efficient use of local resources, scaling up as needed without relying on cloud infrastructure."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#ethical-and-environmental-considerations",
+    "href": "posts/local-llms/index.html#ethical-and-environmental-considerations",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "9. Ethical and Environmental Considerations",
+    "text": "9. Ethical and Environmental Considerations\n\nSustainable Practices: Using local resources can be more environmentally friendly by reducing the energy consumption associated with cloud data centers.\nEthical Considerations: Promotes ethical use of AI by keeping sensitive data within trusted boundaries and reducing dependency on centralized services."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#autonomy-and-independence",
+    "href": "posts/local-llms/index.html#autonomy-and-independence",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "10. Autonomy and Independence",
+    "text": "10. Autonomy and Independence\n\nIndependence from Providers: Reduces dependency on cloud service providers, giving users more autonomy and reducing the risk of vendor lock-in.\nResilience: Enhances resilience against changes in cloud service policies, pricing, or availability.\n\nDo any of these resonate with you? I’d be excited to hear which ones on twitter and/or LinkedIn."
+  },
+  {
+    "objectID": "posts/local-llms/index.html#getting-started-with-local-llms",
+    "href": "posts/local-llms/index.html#getting-started-with-local-llms",
+    "title": "Brief Arguments for Local LLMs and AI",
+    "section": "Getting Started with Local LLMs",
+    "text": "Getting Started with Local LLMs\n\nOllama is a great way to get started locally with SOTA models, such as Llama 3, Phi 3, Mistral, and Gemma;\nSimon’s LLM cli utility allows you to explore LLMs of all kinds from the command and has all the fun mentioned above: can be piped according to unix-like philosophy, logs to local sqlite db, can be explored interactively using datasette, can work with embeddings to build RAG apps, and more!\nLlamaFile is a great project from Mozilla that is “an open source initiative that collapses all the complexity of a full-stack LLM chatbot down to a single file that runs on six operating systems”, has a cool front-end GUI, and you can get up and running with lots of models, including multimodal models such as LLaVa, immediately;\nLM Studio is one of the more advanced GUI I’ve seen to interact with local LLMs: you can discover new models on the homepage, browse and download lots of models from HuggingFace, easily chat with models, and even chat with several simultaneously to compare responses, latency, and more.\nOobagooba’s text generation webUI, which allows you to interact with local models (and others) through a webUI – lots of fun stuff for fine-tuning, chatting and so on.\n\nI use all of these tools a bunch and hope to demo some of them soon and perhaps do some write-ups so let me know on twitter and/or LinkedIn, if you’d find this useful, and I’ll likely get to it sooner!"
+  },
+  {
     "objectID": "posts/pierre-menard/index.html",
     "href": "posts/pierre-menard/index.html",
     "title": "ChatGPT, Author of The Quixote",
@@ -144,6 +228,6 @@
     "href": "index.html",
     "title": "Hugo's blog",
     "section": "",
-    "text": "Getting Started with Generative AI for Everyone\n\n\n\n\n\n\nGenAI\n\n\nLLMs\n\n\n\nWith the advent of Generative AI, more people than ever (technical and non-technical) can build interesting, fun, and productivity-increasing AI apps and workflows. In this post, we introduce the GenAI mindset of combining atomic units to build AI-powered apps and workflows\n\n\n\n\n\nMay 28, 2024\n\n\nHugo Bowne-Anderson and Jonathan Whitaker\n\n\n\n\n\n\n\n\n\n\n\n\nBoost Your Productivity with ChatGPT in 2024: Simple Steps to Get Started\n\n\n\n\n\n\nGenAI\n\n\nLLMs\n\n\n\nHave a 60-page PDF you don’t have time to read and want summarized? A meeting you need action items from? Or an online video you need transcribed and summarized? Would you like them to then generate a PDF, text file, or spreadsheet of the results? You can do all of this with ChatGPT.\n\n\n\n\n\nMay 28, 2024\n\n\nHugo Bowne-Anderson\n\n\n\n\n\n\n\n\n\n\n\n\nChatGPT, Author of The Quixote\n\n\n\n\n\n\nGenAI\n\n\nLLMs\n\n\n\n\n\n\n\n\n\nMar 24, 2024\n\n\nHugo Bowne-Anderson\n\n\n\n\n\n\n\n\n\n\n\n\nLights, GenAI, Action – Building Systems with Generative Video\n\n\n\n\n\n\nGenAI\n\n\nMetaflow\n\n\n\nWe created a workflow to generate hundreds of videos with Stable Video Diffusion in one command. \n\n\n\n\n\nDec 10, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nWhat is Causal Inference?\n\n\n\n\n\n\nCausal inference\n\n\n\nAn Introduction for Data Scientists and Machine Learning Engineers. \n\n\n\n\n\nJul 28, 2022\n\n\n\n\n\n\nNo matching items"
+    "text": "Brief Arguments for Local LLMs and AI\n\n\n\n\n\n\nGenAI\n\n\nLLMs\n\n\n\nI recently hosted a session with Simon Willison for the “Mastering LLMs” conference, discussing local LLM usage with Simon’s CLI utility. Reflecting on why I prefer local LLMs, key benefits include data privacy, performance, cost efficiency, customization, offline capabilities, learning opportunities, open-source support, scalability, ethical considerations, and autonomy. Recommended tools for getting started include Ollama, Simon’s LLM CLI utility, LlamaFile, LM Studio, and Oobagooba’s text generation webUI. \n\n\n\n\n\nJun 17, 2024\n\n\nHugo Bowne-Anderson\n\n\n\n\n\n\n\n\n\n\n\n\nGetting Started with Generative AI for Everyone\n\n\n\n\n\n\nGenAI\n\n\nLLMs\n\n\n\nWith the advent of Generative AI, more people than ever (technical and non-technical) can build interesting, fun, and productivity-increasing AI apps and workflows. In this post, we introduce the GenAI mindset of combining atomic units to build AI-powered apps and workflows\n\n\n\n\n\nMay 28, 2024\n\n\nHugo Bowne-Anderson and Jonathan Whitaker\n\n\n\n\n\n\n\n\n\n\n\n\nBoost Your Productivity with ChatGPT in 2024: Simple Steps to Get Started\n\n\n\n\n\n\nGenAI\n\n\nLLMs\n\n\n\nHave a 60-page PDF you don’t have time to read and want summarized? A meeting you need action items from? Or an online video you need transcribed and summarized? Would you like them to then generate a PDF, text file, or spreadsheet of the results? You can do all of this with ChatGPT.\n\n\n\n\n\nMay 28, 2024\n\n\nHugo Bowne-Anderson\n\n\n\n\n\n\n\n\n\n\n\n\nChatGPT, Author of The Quixote\n\n\n\n\n\n\nGenAI\n\n\nLLMs\n\n\n\n\n\n\n\n\n\nMar 24, 2024\n\n\nHugo Bowne-Anderson\n\n\n\n\n\n\n\n\n\n\n\n\nLights, GenAI, Action – Building Systems with Generative Video\n\n\n\n\n\n\nGenAI\n\n\nMetaflow\n\n\n\nWe created a workflow to generate hundreds of videos with Stable Video Diffusion in one command. \n\n\n\n\n\nDec 10, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nWhat is Causal Inference?\n\n\n\n\n\n\nCausal inference\n\n\n\nAn Introduction for Data Scientists and Machine Learning Engineers. \n\n\n\n\n\nJul 28, 2022\n\n\n\n\n\n\nNo matching items"
   }
 ]

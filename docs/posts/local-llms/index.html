@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A collection of posts on AI, machine learning, and data science.">
+<meta name="author" content="Hugo Bowne-Anderson">
+<meta name="dcterms.date" content="2024-06-17">
+<meta name="description" content="I recently hosted a session with Simon Willison for the “Mastering LLMs” conference, discussing local LLM usage with Simon’s CLI utility. Reflecting on why I prefer local LLMs, key benefits include data privacy, performance, cost efficiency, customization, offline capabilities, learning opportunities, open-source support, scalability, ethical considerations, and autonomy. Recommended tools for getting started include Ollama, Simon’s LLM CLI utility, LlamaFile, LM Studio, and Oobagooba’s text generation webUI.">
 
-<title>Hugo’s blog</title>
+<title>Hugo’s blog - Brief Arguments for Local LLMs and AI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,24 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,77 +69,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Hugo’s blog</span>
     </a>
   </div>
@@ -150,7 +92,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -171,236 +113,150 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Brief Arguments for Local LLMs and AI</h1>
+                  <div>
+        <div class="description">
+          I recently hosted a session with Simon Willison for the “Mastering LLMs” conference, discussing local LLM usage with Simon’s CLI utility. Reflecting on why I prefer local LLMs, key benefits include data privacy, performance, cost efficiency, customization, offline capabilities, learning opportunities, open-source support, scalability, ethical considerations, and autonomy. Recommended tools for getting started include Ollama, Simon’s LLM CLI utility, LlamaFile, LM Studio, and Oobagooba’s text generation webUI.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">GenAI</div>
+                <div class="quarto-category">LLMs</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Hugo Bowne-Anderson </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 17, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="Causal inference">Causal inference <span class="quarto-category-count">(1)</span></div><div class="category" data-category="GenAI">GenAI <span class="quarto-category-count">(5)</span></div><div class="category" data-category="LLMs">LLMs <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Metaflow">Metaflow <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p>I recently hosted a session with Simon Willison for Hamel Husain and Dan Becker’s <a href="https://maven.com/s/course/e457fa822c">Mastering LLMs: A Conference For Developers &amp; Data Scientists</a>. Simon’s talk, which I encourage you to watch, which was all about</p>
+<ul>
+<li>Using LLMs from the command line with <a href="https://llm.datasette.io/en/stable/">his CLI utility llm</a>,</li>
+<li>Piping and automating with llm,</li>
+<li>Exploring LLM conversations with <a href="https://datasette.io/">his tool datasette</a> (llm conversations are automatically logged to a local SQLite database!),</li>
+<li><a href="https://llm.datasette.io/en/stable/embeddings/index.html">Working with embeddings from the command line</a>, and</li>
+<li>Building RAG systems from the command line.</li>
+</ul>
+<p>You can watch it here and read more about it <a href="https://parlance-labs.com/talks/applications/simon_llm_cli/">here</a>:</p>
+<p>What I actually want to write about is spurred by Dan Becker asking me why I like using local LLMs and I don’t think I had a satisfactory answer at the time. I went away, thought about it, chatted with a couple LLMs (Claude and ChatGPT) about it, and came up with the following:</p>
+<section id="data-privacy-and-security" class="level2">
+<h2 class="anchored" data-anchor-id="data-privacy-and-security">1. Data Privacy and Security</h2>
+<ul>
+<li><p><strong>Control Over Data:</strong> Running models locally ensures that sensitive data never leaves your machine, providing higher levels of privacy and security.</p></li>
+<li><p><strong>Compliance:</strong> For industries with strict data regulations, local processing helps in adhering to compliance requirements.</p></li>
+</ul>
+</section>
+<section id="performance-and-latency" class="level2">
+<h2 class="anchored" data-anchor-id="performance-and-latency">2. Performance and Latency</h2>
+<ul>
+<li><p><strong>Reduced Latency:</strong> Local models eliminate the need for network requests, resulting in faster response times, especially important for real-time applications.</p></li>
+<li><p><strong>Consistency:</strong> Local processing avoids variability in latency that can occur due to network issues or server-side processing delays.</p></li>
+</ul>
+</section>
+<section id="cost-efficiency" class="level2">
+<h2 class="anchored" data-anchor-id="cost-efficiency">3. Cost Efficiency</h2>
+<ul>
+<li><p><strong>Lower Costs:</strong> Avoiding cloud-based service fees can be cost-effective, especially for frequent or large-scale usage.</p></li>
+<li><p><strong>Predictable Expenses:</strong> Costs are more predictable as they mainly involve hardware and occasional software updates rather than ongoing cloud service charges.</p></li>
+</ul>
+</section>
+<section id="customization-and-control" class="level2">
+<h2 class="anchored" data-anchor-id="customization-and-control">4. Customization and Control</h2>
+<ul>
+<li><p><strong>Tailored Solutions:</strong> Local deployment allows for greater customization of the models and integration with specific workflows.</p></li>
+<li><p><strong>Full Control:</strong> Users have full control over the environment, configurations, and updates, which is beneficial for debugging and optimizing performance.</p></li>
+</ul>
+</section>
+<section id="offline-capabilities" class="level2">
+<h2 class="anchored" data-anchor-id="offline-capabilities">5. Offline Capabilities</h2>
+<ul>
+<li><p><strong>Offline Access:</strong> Local models can function without an internet connection, which is crucial for remote locations or scenarios with unreliable connectivity.</p></li>
+<li><p><strong>Disaster Recovery:</strong> Ensures that applications remain operational even during network outages or cloud service disruptions.</p></li>
+</ul>
+</section>
+<section id="learning-and-experimentation" class="level2">
+<h2 class="anchored" data-anchor-id="learning-and-experimentation">6. Learning and Experimentation</h2>
+<ul>
+<li><p><strong>Hands-On Experience:</strong> Running models locally provides a deeper understanding of how they work, beneficial for learning and research.</p></li>
+<li><p><strong>Experimentation:</strong> Facilitates rapid experimentation and prototyping without the constraints or delays of cloud-based services.</p></li>
+</ul>
+</section>
+<section id="open-source-and-community-support" class="level2">
+<h2 class="anchored" data-anchor-id="open-source-and-community-support">7. Open Source and Community Support</h2>
+<ul>
+<li><p><strong>Community Innovation:</strong> Many local deployment tools are open source, fostering community contributions and rapid innovation.</p></li>
+<li><p><strong>Transparency:</strong> Open source tools provide transparency in how models are implemented and executed, which can build trust and facilitate customization.</p></li>
+</ul>
+</section>
+<section id="scalability-for-development" class="level2">
+<h2 class="anchored" data-anchor-id="scalability-for-development">8. Scalability for Development</h2>
+<ul>
+<li><p><strong>Development and Testing:</strong> Local environments are ideal for development and testing before deploying to production environments, ensuring robustness and reliability.</p></li>
+<li><p><strong>Resource Optimization:</strong> Allows for efficient use of local resources, scaling up as needed without relying on cloud infrastructure.</p></li>
+</ul>
+</section>
+<section id="ethical-and-environmental-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="ethical-and-environmental-considerations">9. Ethical and Environmental Considerations</h2>
+<ul>
+<li><p><strong>Sustainable Practices:</strong> Using local resources can be more environmentally friendly by reducing the energy consumption associated with cloud data centers.</p></li>
+<li><p><strong>Ethical Considerations:</strong> Promotes ethical use of AI by keeping sensitive data within trusted boundaries and reducing dependency on centralized services.</p></li>
+</ul>
+</section>
+<section id="autonomy-and-independence" class="level2">
+<h2 class="anchored" data-anchor-id="autonomy-and-independence">10. Autonomy and Independence</h2>
+<ul>
+<li><p><strong>Independence from Providers:</strong> Reduces dependency on cloud service providers, giving users more autonomy and reducing the risk of vendor lock-in.</p></li>
+<li><p><strong>Resilience:</strong> Enhances resilience against changes in cloud service policies, pricing, or availability.</p></li>
+</ul>
+<p>Do any of these resonate with you? I’d be excited to hear which ones on <a href="https://x.com/hugobowne">twitter</a> and/or <a href="https://www.linkedin.com/in/hugo-bowne-anderson-045939a5/">LinkedIn</a>.</p>
+</section>
+<section id="getting-started-with-local-llms" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started-with-local-llms">Getting Started with Local LLMs</h2>
+<ul>
+<li><a href="https://ollama.com/">Ollama</a> is a great way to get started locally with SOTA models, such as Llama 3, Phi 3, Mistral, and Gemma;</li>
+<li><a href="https://llm.datasette.io/en/stable/">Simon’s LLM cli utility</a> allows you to explore LLMs of all kinds from the command and has all the fun mentioned above: can be piped according to unix-like philosophy, logs to local sqlite db, can be explored interactively using <a href="https://datasette.io/">datasette</a>, can work with embeddings to build RAG apps, and more!</li>
+<li><a href="https://github.com/Mozilla-Ocho/llamafile">LlamaFile</a> is a great project from Mozilla that is <a href="https://future.mozilla.org/news/introducing-llamafile/">“an open source initiative that collapses all the complexity of a full-stack LLM chatbot down to a single file that runs on six operating systems”</a>, has a cool front-end GUI, and you can get up and running with lots of models, including <a href="https://llava-vl.github.io/">multimodal models such as LLaVa</a>, immediately;</li>
+<li><a href="https://lmstudio.ai/">LM Studio</a> is one of the more advanced GUI I’ve seen to interact with local LLMs: you can discover new models on the homepage, browse and download lots of models from HuggingFace, easily chat with models, and even chat with several simultaneously to compare responses, latency, and more.</li>
+<li><a href="https://github.com/oobabooga/text-generation-webui">Oobagooba’s text generation webUI</a>, which allows you to interact with local models (and others) through a webUI – lots of fun stuff for fine-tuning, chatting and so on.</li>
+</ul>
+<p>I use all of these tools a bunch and hope to demo some of them soon and perhaps do some write-ups so let me know on <a href="https://x.com/hugobowne">twitter</a> and/or <a href="https://www.linkedin.com/in/hugo-bowne-anderson-045939a5/">LinkedIn</a>, if you’d find this useful, and I’ll likely get to it sooner!</p>
 
 
+</section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="GenAI,LLMs" data-listing-date-sort="1718546400000" data-listing-file-modified-sort="1718601813114" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="809">
-<div class="thumbnail">
-<p><a href="./posts/local-llms/index.html" class="no-external"></a></p><a href="./posts/local-llms/index.html" class="no-external">
-<p><img src="./posts/local-llms/images/llamas.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/local-llms/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/local-llms/index.html" class="no-external">Brief Arguments for Local LLMs and AI</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/local-llms/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('GenAI'); return false;">
-GenAI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('LLMs'); return false;">
-LLMs
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/local-llms/index.html" class="no-external">I recently hosted a session with Simon Willison for the “Mastering LLMs” conference, discussing local LLM usage with Simon’s CLI utility. Reflecting on why I prefer local LLMs, key benefits include data privacy, performance, cost efficiency, customization, offline capabilities, learning opportunities, open-source support, scalability, ethical considerations, and autonomy. Recommended tools for getting started include Ollama, Simon’s LLM CLI utility, LlamaFile, LM Studio, and Oobagooba’s text generation webUI. </a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/local-llms/index.html" class="no-external">
-<div class="listing-date">
-Jun 17, 2024
-</div>
-<div class="listing-author">
-Hugo Bowne-Anderson
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="GenAI,LLMs" data-listing-date-sort="1716818400000" data-listing-file-modified-sort="1716860319777" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1738">
-<div class="thumbnail">
-<p><a href="./posts/gen-ai-atomic-units/index.html" class="no-external"></a></p><a href="./posts/gen-ai-atomic-units/index.html" class="no-external">
-<p><img src="./posts/gen-ai-atomic-units/images/image3.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/gen-ai-atomic-units/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/gen-ai-atomic-units/index.html" class="no-external">Getting Started with Generative AI for Everyone</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/gen-ai-atomic-units/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('GenAI'); return false;">
-GenAI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('LLMs'); return false;">
-LLMs
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/gen-ai-atomic-units/index.html" class="no-external">With the advent of Generative AI, more people than ever (technical and non-technical) can build interesting, fun, and productivity-increasing AI apps and workflows. In this post, we introduce the GenAI mindset of combining atomic units to build AI-powered apps and workflows</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/gen-ai-atomic-units/index.html" class="no-external">
-<div class="listing-date">
-May 28, 2024
-</div>
-<div class="listing-author">
-Hugo Bowne-Anderson and Jonathan Whitaker
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="GenAI,LLMs" data-listing-date-sort="1716818400000" data-listing-file-modified-sort="1716861058099" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1830">
-<div class="thumbnail">
-<p><a href="./posts/llm-productivity/index.html" class="no-external"></a></p><a href="./posts/llm-productivity/index.html" class="no-external">
-<p><img src="./posts/llm-productivity/images/image9.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/llm-productivity/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/llm-productivity/index.html" class="no-external">Boost Your Productivity with ChatGPT in 2024: Simple Steps to Get Started</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/llm-productivity/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('GenAI'); return false;">
-GenAI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('LLMs'); return false;">
-LLMs
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/llm-productivity/index.html" class="no-external">Have a 60-page PDF you don’t have time to read and want summarized? A meeting you need action items from? Or an online video you need transcribed and summarized? Would you like them to then generate a PDF, text file, or spreadsheet of the results? You can do all of this with ChatGPT.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/llm-productivity/index.html" class="no-external">
-<div class="listing-date">
-May 28, 2024
-</div>
-<div class="listing-author">
-Hugo Bowne-Anderson
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="GenAI,LLMs" data-listing-date-sort="1711198800000" data-listing-file-modified-sort="1711457523498" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2466">
-<div class="thumbnail">
-<p><a href="./posts/pierre-menard/index.html" class="no-external"></a></p><a href="./posts/pierre-menard/index.html" class="no-external">
-<p><img src="./posts/pierre-menard/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/pierre-menard/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/pierre-menard/index.html" class="no-external">ChatGPT, Author of The Quixote</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/pierre-menard/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('GenAI'); return false;">
-GenAI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('LLMs'); return false;">
-LLMs
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/pierre-menard/index.html" class="no-external">In the era of generative AI, copyright won’t be enough. In fact, it’s the wrong place to look.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/pierre-menard/index.html" class="no-external">
-<div class="listing-date">
-Mar 24, 2024
-</div>
-<div class="listing-author">
-Hugo Bowne-Anderson
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="GenAI,Metaflow" data-listing-date-sort="1702126800000">
-<div class="thumbnail">
-<p><a href="https://outerbounds.com/blog/lights-genai-action/" class="no-external"></a></p><a href="https://outerbounds.com/blog/lights-genai-action/" class="no-external">
-<p><img src="https://outerbounds.com/blog/cover/lights-genai-action.jpg" class="thumbnail-image"></p>
-</a><p><a href="https://outerbounds.com/blog/lights-genai-action/" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="https://outerbounds.com/blog/lights-genai-action/" class="no-external">Lights, GenAI, Action – Building Systems with Generative Video</a>
-</h3>
-<div class="listing-subtitle">
-<a href="https://outerbounds.com/blog/lights-genai-action/" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('GenAI'); return false;">
-GenAI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Metaflow'); return false;">
-Metaflow
-</div>
-</div>
-<div class="listing-description">
-<a href="https://outerbounds.com/blog/lights-genai-action/" class="no-external">We created a workflow to generate hundreds of videos with Stable Video Diffusion in one command. </a>
-</div>
-</div>
-<div class="metadata">
-<a href="https://outerbounds.com/blog/lights-genai-action/" class="no-external">
-<div class="listing-date">
-Dec 10, 2023
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="Causal inference" data-listing-date-sort="1658930400000">
-<div class="thumbnail">
-<p><a href="https://www.oreilly.com/radar/what-is-causal-inference/" class="no-external"></a></p><a href="https://www.oreilly.com/radar/what-is-causal-inference/" class="no-external">
-<p><img src="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2022/01/wici_0108.png" class="thumbnail-image"></p>
-</a><p><a href="https://www.oreilly.com/radar/what-is-causal-inference/" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="https://www.oreilly.com/radar/what-is-causal-inference/" class="no-external">What is Causal Inference?</a>
-</h3>
-<div class="listing-subtitle">
-<a href="https://www.oreilly.com/radar/what-is-causal-inference/" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Causal inference'); return false;">
-Causal inference
-</div>
-</div>
-<div class="listing-description">
-<a href="https://www.oreilly.com/radar/what-is-causal-inference/" class="no-external">An Introduction for Data Scientists and Machine Learning Engineers. </a>
-</div>
-</div>
-<div class="metadata">
-<a href="https://www.oreilly.com/radar/what-is-causal-inference/" class="no-external">
-<div class="listing-date">
-Jul 28, 2022
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
