@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Hugo Bowne-Anderson and Sebastian Raschka">
+<meta name="dcterms.date" content="2024-07-19">
+<meta name="description" content="Learn the full lifecycle of building large language models (LLMs) from the ground up. Explore model architecture design, pre-training, fine-tuning, RLHF, and deployment techniques. Discover the skills and hardware needed to work with LLMs, and how to choose between prompt engineering, RAG, and fine-tuning for your use case. Stay up-to-date with cutting-edge research like LoRA, Mixture of Experts, and Direct Preference Optimization. Understand the implications of LLMs for community-driven platforms like Stack Overflow.">
+
+<title>Hugo’s blog - Developing and Training LLMs From Scratch</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Hugo’s blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hugobowne"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/hugobowne"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Developing and Training LLMs From Scratch</h1>
+                  <div>
+        <div class="description">
+          Learn the full lifecycle of building large language models (LLMs) from the ground up. Explore model architecture design, pre-training, fine-tuning, RLHF, and deployment techniques. Discover the skills and hardware needed to work with LLMs, and how to choose between prompt engineering, RAG, and fine-tuning for your use case. Stay up-to-date with cutting-edge research like LoRA, Mixture of Experts, and Direct Preference Optimization. Understand the implications of LLMs for community-driven platforms like Stack Overflow.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">GenAI</div>
+                <div class="quarto-category">LLMs</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Hugo Bowne-Anderson and Sebastian Raschka </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 19, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>In <a href="https://vanishinggradients.fireside.fm/26">a recent episode of the Vanishing Gradients podcast</a>, host Hugo Bowne-Anderson spoke with Sebastian Raschka, an AI researcher and educator, about the full lifecycle of large language models (LLMs). The conversation covers a wide range of topics related to building, training, fine-tuning, and deploying LLMs. Read this post to check out what they covered and you can watch the full episode here:</p>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qL4JY6Y5pmA?si=qIAjAtHh4L8qMmzg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+</div>
+<p><strong>TLDR:</strong></p>
+<ul>
+<li>The LLM lifecycle involves model architecture design, pre-training, fine-tuning, and deployment. Key architecture choices include vocabulary size, embedding size, and number of transformer blocks.</li>
+<li>Pre-training on large general or domain-specific datasets is expensive but crucial. Fine-tuning adapts the model to specific tasks but is less effective for learning new knowledge.</li>
+<li>Retrieval Augmented Generation (RAG) uses an LLM to draw from external knowledge for question-answering and summarization.</li>
+<li>Reinforcement Learning with Human Feedback (RLHF) aligns LLMs with human preferences through reward modeling and policy optimization. Continued pre-training is an alternative to standard fine-tuning.</li>
+<li>Working with LLMs requires deep learning fundamentals, distributed training techniques, and engineering best practices. Start small and debug before scaling up.</li>
+<li>Hardware options range from free Colab GPUs to paid cloud instances. Consider GPU RAM, parallelism support, and fast interconnects.</li>
+<li>Choose between prompt engineering, RAG, and fine-tuning based on task complexity and available resources. Combine approaches as needed.</li>
+<li>Promising research directions include LoRA for efficient fine-tuning, Mixture of Experts for conditional computation, multi-token prediction for faster inference, and Direct Preference Optimization as an alternative to RLHF.</li>
+<li>LLMs like ChatGPT may change how knowledge is shared on community-driven platforms like Stack Overflow, presenting both challenges and opportunities.</li>
+</ul>
+<section id="llm-lifecycle" class="level2">
+<h2 class="anchored" data-anchor-id="llm-lifecycle"><strong>LLM Lifecycle</strong></h2>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PqfwNxIiBT0?si=Q6Xb29zIgjwpjM4m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+</div>
+<p>The LLM lifecycle may seem like a big, intimidating term, but it can be broken down into several key steps:</p>
+<ol type="1">
+<li><strong>Coding the model architecture</strong>: Choose a base architecture (e.g., GPT, Llama, Phi) and define unique properties like:
+<ul>
+<li>Vocabulary size</li>
+<li>Embedding size</li>
+<li>Number of attention heads and transformer blocks</li>
+<li>Activation functions</li>
+<li>These choices determine the size of the LLM, the data it needs, and the compute requirements for training and deployment.</li>
+</ul></li>
+<li><strong>Pre-training</strong>: Train the model on a large corpus of text data, which can be either:
+<ul>
+<li>General (e.g., for models like Llama, Gemma, and Phi)</li>
+<li>Domain-specific (e.g., finance-focused data for BloombergGPT)</li>
+<li>The tradeoff is whether the expense of custom pre-training, which can cost hundreds of thousands to millions of dollars, is worth it for the specific use case versus fine-tuning one of the general models.</li>
+</ul></li>
+<li><strong>Fine-tuning</strong>: Adapt the pre-trained model for a specific task or domain. Options include:
+<ul>
+<li><em>Instruction fine-tuning</em>: Make the model better at following instructions without changing its underlying knowledge</li>
+<li><em>Task-specific fine-tuning</em>: Train the model for a downstream task like spam classification</li>
+<li>Fine-tuning is usually not as effective as pre-training for instilling entirely new knowledge into the model. For example, fine-tuning an English LLM on Spanish data may improve its Spanish performance if there was already some Spanish data during pre-training, but it likely won’t be as good as pre-training from scratch on Spanish.</li>
+</ul></li>
+<li><strong>Retrieval Augmented Generation (RAG)</strong>: If the goal is to have the model retrieve information from documents rather than generating the full response from scratch, RAG can be used on top of a pre-trained LLM. This is useful when you want the model to draw on external knowledge to answer questions or summarize information.</li>
+<li><strong>Deployment</strong>: Deploy the model to production and monitor its performance, making updates as needed. This may involve serving the model through an API, integrating it into a user-facing application, and setting up monitoring and logging to track its behavior over time.</li>
+</ol>
+<p>Depending on the use case, not all of these steps may be necessary. For example, a simple personal assistant could potentially just use an off-the-shelf model like Llama 3 without any custom fine-tuning, running locally or deployed with a basic UI.</p>
+</section>
+<section id="rlhf-and-other-add-ons" class="level2">
+<h2 class="anchored" data-anchor-id="rlhf-and-other-add-ons"><strong>RLHF and Other Add-Ons</strong></h2>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YYXXWa_1J5w?si=vPDFJH9xoOxHJhV_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+</div>
+<p>Beyond the core LLM lifecycle, there are some interesting extensions and add-ons to consider. One hot area of research is reinforcement learning from human feedback (RLHF), which aims to align LLMs more closely with human preferences.</p>
+<p>The RLHF process typically involves two main stages:</p>
+<ol type="1">
+<li><strong>Supervised Instruction Fine-Tuning</strong>:
+<ul>
+<li>Instruction fine-tune the pre-trained model (using next-token prediction on instruction data) on a large dataset (e.g., 50K examples)</li>
+<li>Goal is to make the model better at following instructions and generating relevant outputs</li>
+</ul></li>
+<li><strong>Reward Modeling and Policy Optimization</strong>:
+<ul>
+<li>Collect a smaller dataset of human preferences, where each example includes:
+<ul>
+<li>Two possible model outputs for the same prompt</li>
+<li>A human annotation indicating which output is preferred</li>
+</ul></li>
+<li>Train a reward model to predict the human-preferred output based on this dataset</li>
+<li>Optimize the main LLM (the “policy”) to maximize the reward predicted by the reward model</li>
+</ul></li>
+</ol>
+<p>Sebastian illustrates the impact of RLHF with an example: if an instruction-tuned model frequently uses the word “delve” compared to its non-instruction-tuned counterpart, it suggests that the human raters preferred outputs containing “delve” during the RLHF process.</p>
+<p>Another interesting direction mentioned in the conversation is <strong><a href="https://www.latent.space/p/fastai">Continued Pre-training, advocated by Jeremy Howard and others</a></strong>. The idea is to continue pre-training the model on a smaller, task-specific dataset, rather than switching to supervised fine-tuning. This may help the model acquire new knowledge more effectively compared to standard fine-tuning.</p>
+</section>
+<section id="skills-you-need-to-work-with-llms" class="level2">
+<h2 class="anchored" data-anchor-id="skills-you-need-to-work-with-llms"><strong>Skills You Need to Work with LLMs</strong></h2>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Fi-KGnz82D8?si=xyAr1pOkN2X5ox4Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+</div>
+<p>Working with LLMs requires a foundation in deep learning, but a lot of the core concepts carry over:</p>
+<ul>
+<li>Familiarity with PyTorch (or another deep learning framework)</li>
+<li>Understanding of loss functions, optimizers, and evaluation metrics</li>
+<li>Comfort with training loops, including concepts like cross-entropy loss, learning rate schedules, gradient descent, and backpropagation</li>
+</ul>
+<p><em>Sebastian notes that you can think of an LLM as a big PyTorch model – if you’re comfortable with the core deep learning concepts, you’re already well on your way to working with LLMs.</em></p>
+<p>However, the scale of LLMs introduces some additional challenges:</p>
+<ul>
+<li><strong>Multi-GPU and multi-node training</strong>: To train LLMs efficiently, you’ll need to use techniques like model parallelism, pipeline parallelism, and sharded data parallelism across multiple GPUs and multiple nodes (depending on the model size).</li>
+<li><strong>Low-precision and mixed-precision training</strong>: Using lower-precision formats like bfloat16 can help reduce memory requirements and speed up training.</li>
+<li><strong>Checkpointing</strong>: Saving model checkpoints periodically is crucial to avoid losing progress if a long-running training job fails.</li>
+</ul>
+<p>Engineering best practices become even more important when working with LLMs. Tools like PyTorch Lightning and Fabric can help abstract away some of the complexity of distributed training, but it’s still valuable to understand what’s going on under the hood.</p>
+</section>
+<section id="hardware-resources-to-work-with-llms" class="level2">
+<h2 class="anchored" data-anchor-id="hardware-resources-to-work-with-llms"><strong>Hardware / Resources to Work with LLMs</strong></h2>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3E65FLXt__A?si=NWJeHxemEujqVhUh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+</div>
+<p>Training LLMs requires significant compute resources beyond a typical laptop or desktop. Sebastian outlines a few common options:</p>
+<ul>
+<li><strong>Google Colab</strong>: Offers free GPU access for prototyping small models, but with strict runtime limits. Not suitable for larger-scale training.</li>
+<li><strong>Cloud platforms (AWS, GCP, Azure)</strong>: Allow you to rent powerful GPU instances on-demand, but require careful environment setup and cost management. You’ll need to set up your environment from scratch each time, which can be time-consuming.</li>
+<li><strong>Managed platforms (e.g., Lightning AI)</strong>: Provide streamlined development environments with easy access to pre-configured compute resources. The price is similar to AWS, but it can save a lot of engineering time. Lightning AI also offers persistent storage, so you don’t need to constantly re-install your dependencies.</li>
+</ul>
+<p>When choosing a hardware setup, key considerations include the amount of GPU RAM available (often the main bottleneck for LLMs), support for multi-GPU parallelism techniques like tensor parallelism and sharded data parallelism, and fast interconnects between devices.</p>
+<p>Sebastian emphasizes the importance of starting small and debugging your code on a local machine before scaling up. He likes to prototype using compact models like GPT-2 or smaller versions of Pythia, which can run on a single CPU or GPU and shares many architectural similarities with larger LLMs. In fact, <a href="https://youtu.be/UgkeeXFYaYY">he was able to train a spam classifier using GPT-2 on his MacBook Air in just 6 minutes (or 30 seconds on a GPU)</a>!</p>
+<p>Interestingly, many of the most popular LLM architectures (Llama, Mistral, Phi, etc.) are derived from the same basic building blocks as GPT. So getting hands-on experience with GPT-2, even on a small scale, can teach you a lot about how LLMs work under the hood. Playing with pre-trained weights is also a great way to validate your code, since the model will only generate sensible outputs if you’ve implemented everything correctly.</p>
+</section>
+<section id="prompt-engineering-rag-or-fine-tuning" class="level2">
+<h2 class="anchored" data-anchor-id="prompt-engineering-rag-or-fine-tuning"><strong>Prompt Engineering, RAG, or Fine-Tuning?</strong></h2>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NO5YkFzen7c?si=ksEwbBJ9DM95QB9r" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+</div>
+<p>When working with LLMs, there are several approaches to getting the desired outputs for your specific use case. Sebastian breaks down the key considerations for choosing between prompt engineering, retrieval augmented generation (RAG), and fine-tuning.</p>
+<ul>
+<li><strong>Prompt engineering</strong>: The simplest approach, where you craft prompts to elicit the desired outputs from the model.
+<ul>
+<li>Works well when the model has the necessary knowledge and just needs guidance.</li>
+<li>Limited by the model’s pre-existing knowledge and ability to follow instructions.</li>
+</ul></li>
+<li><strong>Retrieval Augmented Generation (RAG)</strong>: Enhances the model’s knowledge by retrieving relevant documents from a corpus based on the user’s prompt.
+<ul>
+<li>Useful when you have a large corpus of relevant data that wasn’t included in the model’s original training.</li>
+<li>Requires a well-organized corpus and infrastructure for efficient retrieval.</li>
+</ul></li>
+<li><strong>Fine-tuning</strong>: Trains the model on a specific dataset to deeply internalize new knowledge or adapt to a specific task.
+<ul>
+<li>Most powerful approach, but also the most computationally intensive and time-consuming.</li>
+<li>Requires significant compute resources and high-quality data.</li>
+</ul></li>
+</ul>
+<p>So how do you choose the right approach for your use case? Sebastian recommends the following:</p>
+<ol type="1">
+<li>Start with prompt engineering and gradually work your way up to more advanced techniques as needed.</li>
+<li>If prompt engineering isn’t sufficient, try incorporating RAG to expand the model’s knowledge base.</li>
+<li>If you find yourself using RAG frequently for the same task, or if the model is still struggling, consider investing in fine-tuning.</li>
+</ol>
+<p>Of course, the feasibility of each approach also depends on your resources and constraints. Prompt engineering is cheap and easy, RAG requires a well-organized corpus, and fine-tuning is the most resource-intensive.</p>
+<p>The key is to experiment and iterate:</p>
+<ul>
+<li>Start with the simplest approach that might work, and gradually add complexity as needed.</li>
+<li>Don’t be afraid to combine techniques (e.g., using prompt engineering to improve RAG queries or fine-tuning a model and then using prompt engineering to guide its outputs).</li>
+</ul>
+<p>As you gain more experience working with LLMs, you’ll develop a better intuition for which approaches are likely to work best in different scenarios. But as a general rule, Sebastian recommends starting simple and only moving to more advanced techniques when the benefits clearly outweigh the costs.</p>
+</section>
+<section id="llm-research-techniques-lora-dpo-and-more" class="level2">
+<h2 class="anchored" data-anchor-id="llm-research-techniques-lora-dpo-and-more"><strong>LLM Research Techniques: LoRA, DPO, and more</strong></h2>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bGfAzh9u3-w?si=gh064e31n67pVzCQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+</div>
+<p>Among the many exciting research ideas in the LLM space, Sebastian highlights a few of his favorites:</p>
+<ul>
+<li><strong>LoRA (Low-Rank Adaptation)</strong>: An efficient fine-tuning technique that approximates full parameter updates with smaller updates to a low-rank decomposition of the weights. LoRA has been around for a couple years but remains Sebastian’s go-to for fine-tuning due to its strong performance and efficiency. He’s also excited about recent variants like QLoRA and DoRA.</li>
+<li><strong>Mixture of Experts (MoE)</strong>: An approach to conditional computation where different subsets of the model parameters are activated depending on the input. This can make the model more efficient by avoiding unnecessary computation. Sebastian notes that MoE is used in some recent state-of-the-art models like Mixtral.</li>
+<li><strong>Multi-token prediction</strong>: A technique for speeding up LLM inference by predicting multiple tokens at once using separate output heads. Sebastian describes this as a clever “hack” that achieves a 4x inference speedup without any fundamentally new math, showing the power of creatively combining existing building blocks.</li>
+<li><strong>Direct Preference Optimization (DPO)</strong>: An alternative to RLHF that removes the need to train a separate reward model, instead directly optimizing the policy (i.e., the LLM) directly to make its outputs preferred by humans. DPO is simpler than RLHF, which may explain why many top-performing models on leaderboards use it. However, a recent paper suggests that RLHF with PPO still outperforms DPO, albeit with more complexity.</li>
+</ul>
+<p>Looking ahead, Sebastian is excited to see more research combining multiple techniques, like the forthcoming Llama 3 model which uses both RLHF and DPO. He also mentions DoRA (an extension of LoRA), the Kahneman Tversky Optimization (a preference-free form of RLHF), and other promising ideas. While the field is moving quickly, some of these core techniques seem to be standing the test of time so far.</p>
+</section>
+<section id="stack-overflow-and-openai" class="level2">
+<h2 class="anchored" data-anchor-id="stack-overflow-and-openai"><strong>Stack Overflow and OpenAI</strong></h2>
+<p>The recent collaboration between Stack Overflow and OpenAI raises interesting questions about the future of community-driven knowledge sharing in the age of LLMs.</p>
+<p>On one hand, there’s a risk that if everyone starts relying on LLMs like ChatGPT to answer their coding questions, they’ll stop contributing to resources like Stack Overflow. This could lead to a negative feedback loop where the lack of new content degrades the quality of the LLMs themselves, since they rely heavily on sites like Stack Overflow for training data.</p>
+<p>At the same time, LLMs are particularly well-suited for answering common, repeated questions that make up a significant fraction of Stack Overflow traffic. If these questions can be reliably answered by an LLM, it may free up human experts to focus on more novel, challenging problems. In this future, Stack Overflow could become a site focused on cutting-edge content and high-quality discussions, while LLMs handle the long tail of simpler queries.</p>
+<p>Sebastian emphasizes that the success of Stack Overflow and other community-driven resources in the age of LLMs will depend on their ability to adapt and provide unique value that can’t be easily replicated by models. This could mean doubling down on moderation and quality control, investing in new content formats and interaction models, or exploring hybrid human-AI collaboration tools.</p>
+<p>In the end, LLMs are only as good as the data they’re trained on – which comes from the collective knowledge contributions of humans. Finding ways to sustain and encourage those contributions, even as LLMs become more prevalent, will be a key challenge and opportunity going forward.</p>
+<p>Be sure to check out Sebastian’s book “<a href="https://www.manning.com/books/build-a-large-language-model-from-scratch">Build a Large Language Model (From Scratch)</a>” and his other tutorials to dive deeper into the technical details of the LLM lifecycle!</p>
+<p>If you enjoyed this, you can follow Sebastian on twitter <a href="https://x.com/rasbt">here</a> and Hugo <a href="https://x.com/hugobowne">here</a>. You can also subscribe to Hugo’s fortnightly <a href="https://hugobowne.substack.com/">Vanishing Gradients Newsletter here</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

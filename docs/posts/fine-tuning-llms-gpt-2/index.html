@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Hugo Bowne-Anderson and Sebastian Raschka">
+<meta name="dcterms.date" content="2024-06-19">
+<meta name="description" content="Discover how to fine-tune a pre-trained GPT-2 model for spam classification in this step-by-step tutorial. Learn data preprocessing techniques, model architecture modification, and the training process using PyTorch. Understand key concepts like freezing layers, cross-entropy loss, and evaluation metrics. See how fine-tuning can significantly improve accuracy from 50% to 95%. Explore ideas for further optimization and adapting the approach to other text classification tasks like sentiment analysis and topic classification.">
+
+<title>Hugo’s blog - Fine-Tuning GPT-2 for Spam Classification: A Live Coding Session with Sebastian Raschka</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Hugo’s blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hugobowne"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/hugobowne"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Fine-Tuning GPT-2 for Spam Classification: A Live Coding Session with Sebastian Raschka</h1>
+                  <div>
+        <div class="description">
+          Discover how to fine-tune a pre-trained GPT-2 model for spam classification in this step-by-step tutorial. Learn data preprocessing techniques, model architecture modification, and the training process using PyTorch. Understand key concepts like freezing layers, cross-entropy loss, and evaluation metrics. See how fine-tuning can significantly improve accuracy from 50% to 95%. Explore ideas for further optimization and adapting the approach to other text classification tasks like sentiment analysis and topic classification.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">GenAI</div>
+                <div class="quarto-category">LLMs</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Hugo Bowne-Anderson and Sebastian Raschka </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 19, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction"><strong>Introduction</strong></h2>
+<p><img src="images/image_1.png" title="image_tooltip" class="img-fluid"></p>
+<p>In a <a href="https://vanishinggradients.fireside.fm/26">recent episode of the Vanishing Gradients podcast</a>, Sebastian Raschka, an AI researcher and educator, dove into the fascinating world of large language models (LLMs) and their applications. During the podcast, Sebastian shared valuable insights on the LLM lifecycle, fine-tuning techniques, and practical considerations for working with these powerful models.</p>
+<p>One of the highlights of the episode was a live coding session, where Sebastian demonstrated how to fine-tune a small local GPT model for a specific task: spam classification. Fine-tuning pre-trained LLMs for specific tasks is a crucial skill in the field of natural language processing (NLP), as it allows us to adapt these models to solve real-world problems efficiently.</p>
+<p>In this blog post, we’ll take a closer look at Sebastian’s live coding session and break down the steps involved in fine-tuning a local GPT model for spam classification. We’ll explore the following topics:</p>
+<ul>
+<li>Dataset and preprocessing techniques</li>
+<li>Loading pre-trained weights from OpenAI</li>
+<li>Model architecture modifications</li>
+<li>Training process and evaluation metrics</li>
+<li>Inference and results</li>
+<li>Potential improvements and further experiments</li>
+</ul>
+<p>By the end of this post, you’ll have a solid understanding of how to fine-tune LLMs for your own projects and a practical example to guide you along the way.</p>
+<p>You can watch it below and you can run all the code in Lightning Studio <a href="https://lightning.ai/lightning-ai/studios/train-a-gpt-classifier-from-scratch?section=recent&amp;view=public">here</a>!</p>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UgkeeXFYaYY?si=u0TXdnSHbdkYzlEB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+</div>
+</section>
+<section id="dataset-and-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-and-preprocessing"><strong>Dataset and Preprocessing</strong></h2>
+<p>To get started, Sebastian used a dataset consisting of text messages labeled as either “spam” or “ham” (non-spam). To keep the training fast (30 seconds on GPU, 10 minutes on laptop), he used a relatively small dataset and relatively small GPT-2 model.</p>
+<p>To preprocess the data, Sebastian followed these steps:</p>
+<ol type="1">
+<li>Loaded the dataset using pandas:
+<ul>
+<li>Pandas is a popular library for data manipulation and analysis in Python</li>
+<li>It provides a convenient way to load datasets from various file formats, such as CSV or Excel</li>
+<li>If needed, polars can be used, which is another library that can be used for similar purposes, offering some performance advantages in certain scenarios</li>
+</ul></li>
+<li>Encoded the labels as integers (0 for “ham” and 1 for “spam”)
+<ul>
+<li>Converting the text labels to integers is a common practice in machine learning</li>
+<li>It allows the model to work with numerical data, which is more efficient and easier to process</li>
+<li>In this case, “ham” messages are assigned the label 0, while “spam” messages are assigned the label 1</li>
+</ul></li>
+<li>Split the data into train, validation, and test sets
+<ul>
+<li>Splitting the dataset into separate subsets is crucial for evaluating the model’s performance and preventing overfitting</li>
+<li>The training set is used to update the model’s parameters during the learning process</li>
+<li>The validation set is used to tune hyperparameters and monitor the model’s performance during training</li>
+<li>The test set is used to assess the model’s final performance on unseen data and provide an unbiased estimate of its generalization ability</li>
+</ul></li>
+</ol>
+<p>Since the dataset was not balanced, Sebastian balanced it himself to ensure that the accuracy metric is meaningful (avoiding the need for F1 score, precision, and recall). Imbalanced datasets can lead to misleading accuracy scores, as a model that simply predicts the majority class can achieve high accuracy without actually learning to discriminate between the classes. By balancing the dataset, Sebastian ensured that the model’s performance is not biased towards the majority class and that the accuracy metric provides a fair assessment of its classification abilities. (In a real-world application, we may work with larger, imbalanced dataset; but a balanced dataset is used for simplicity here.)</p>
+<p>After preprocessing the data, Sebastian created PyTorch datasets and data loaders to efficiently batch and shuffle the data during training. PyTorch datasets provide a convenient way to encapsulate the data and apply transformations, while data loaders handle batching, shuffling, and parallelization. He aimed for the following number of batches:</p>
+<ul>
+<li>Training batches: 130</li>
+<li>Validation batches: 19</li>
+<li>Test batches: 30</li>
+</ul>
+<p>These data loaders were used to feed the data into the model during the training and evaluation phases, just like in scikit-learn when training classifiers like logistic regression, naive Bayes, or SVMs. This abstraction allows for a consistent and efficient way of handling data across different machine learning frameworks and libraries.</p>
+</section>
+<section id="loading-pre-trained-weights-and-modifying-the-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="loading-pre-trained-weights-and-modifying-the-architecture"><strong>Loading Pre-trained Weights and Modifying the Architecture</strong></h2>
+<p><img src="images/image_3.png" title="image_tooltip" class="img-fluid"></p>
+<p>Sebastian loaded a pre-trained GPT-2 model using weights from OpenAI into his own reimplementation of GPT. He started with the smallest GPT-2 model but kept in mind that larger models can be used as well. The different model sizes have the same architecture, with the same transformer blocks and attention heads, but differ in the number of blocks and heads. This allows for flexibility in choosing the model size based on the available computational resources and the complexity of the task at hand.</p>
+<p>Before fine-tuning, Sebastian checked if the loaded model works by generating some text. This is an important step to ensure that the model has been loaded correctly and is functioning as expected. By generating text, he verified that the model is able to produce coherent and meaningful outputs based on the given prompt.</p>
+<p>Next, Sebastian examined the model architecture, which consists of:</p>
+<ul>
+<li>Token embeddings</li>
+<li>Positional embeddings</li>
+<li>Optional dropout</li>
+<li>Repeated transformer blocks with multi-head attention</li>
+</ul>
+<p>Understanding the architecture of the pre-trained model is crucial for making informed decisions about how to modify it for the specific task.</p>
+<p>To adapt GPT-2 for the spam classification task, Sebastian modified the model’s architecture by replacing the final layer with a linear layer that serves as a binary classifier head. The original GPT-2 model is designed for language modeling and text generation, so its final layer outputs a probability distribution over the entire vocabulary. However, for the spam classification task, we only need a binary output indicating whether a message is spam or not. By replacing the final layer with a binary classifier head, Sebastian adapted the model to the specific requirements of the task.</p>
+<p>He also froze all layers except the classifier head and the last transformer block. Freezing the layers means that their parameters will not be updated during the fine-tuning process. This is a common technique used to prevent overfitting and reduce the computational cost of fine-tuning. By freezing the pre-trained layers, Sebastian leveraged the language understanding capabilities already learned by the model and focused on adapting the final layers to the specific task. The last transformer block was left unfrozen to allow for some task-specific adjustments to the model’s representations.</p>
+</section>
+<section id="training-and-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="training-and-evaluation"><strong>Training and Evaluation</strong></h2>
+<p>With the modified GPT-2 architecture in place, Sebastian set up the training loop using PyTorch. He defined the optimizer and loss function (cross-entropy loss) and iterated over the training data loader, performing forward and backward passes and updating the model parameters.</p>
+<p>The optimizer is responsible for updating the model’s parameters based on the computed gradients. In this case, Sebastian used the Adam optimizer, which is a popular choice for training deep learning models. The cross-entropy loss function measures the discrepancy between the predicted probabilities and the true labels, providing a signal for the model to learn from.</p>
+<p>During each training iteration, Sebastian:</p>
+<ol type="1">
+<li>Performed a forward pass to compute the model’s predictions</li>
+<li>Calculated the loss</li>
+<li>Performed a backward pass to compute the gradients</li>
+<li>Updated the model’s parameters using the optimizer</li>
+</ol>
+<p><img src="images/image_2.png" title="image_tooltip" class="img-fluid"></p>
+<p>Sebastian defined an evaluation function to compute the loss and accuracy over the validation set. Evaluating the model on the validation set during training allows for monitoring the model’s performance on unseen data and helps in detecting overfitting. If the validation loss starts increasing while the training loss continues to decrease, it’s an indication that the model is starting to overfit to the training data.</p>
+<p>Before training the model, Sebastian evaluated the baseline performance of the model, which achieved around 50% accuracy before fine-tuning as expected, which is equivalent to random guessing in a binary classification task.</p>
+<p>Next, Sebastian ran the training for 5 epochs and monitored the progress. An epoch represents a complete pass through the entire training datasetDuring the live coding session, Sebastian encountered a gotcha: forgetting to use the <code>no_grad</code> context or inference mode. In PyTorch, when you perform operations on tensors, it builds a computation graph that keeps track of the gradients. This is necessary for training the model, but during evaluation or inference, we don’t need to compute gradients. Forgetting to use <code>no_grad</code> or inference mode can lead to unnecessary memory usage and slower performance. Sebastian fixed this issue and continued training.</p>
+</section>
+<section id="inference-and-results" class="level2">
+<h2 class="anchored" data-anchor-id="inference-and-results"><strong>Inference and Results</strong></h2>
+<p>After the first round of training, Sebastian evaluated the fine-tuned model on the test set. He initially achieved an accuracy of around 80%, which is a significant improvement over the random baseline of 50%. Then, after fixing another gotcha and rerunning the notebook,the model achieved an accuracy of 95% on the test set. This high accuracy indicates that the fine-tuned GPT-2 model has successfully learned to distinguish between spam and ham messages with a high degree of accuracy.</p>
+<p>To further demonstrate the effectiveness of fine-tuning, Sebastian compared the fine-tuned model’s performance to the pre-trained GPT-2 model. The pre-trained model, without any fine-tuning, is not specifically adapted to the spam classification task and may not perform as well. By comparing the results, he highlighted the importance of fine-tuning for achieving high performance on specific tasks.</p>
+<p>Sebastian also experimented with a larger GPT-2 model and observed that it generates less repetitive text and performs even better. This suggests that using larger models with more capacity can lead to improved performance, especially for more complex tasks.</p>
+<p>The iterative process of fine-tuning, evaluating, and making adjustments is a common practice in machine learning. By analyzing the model’s performance and identifying areas for improvement, practitioners can gradually refine the model and achieve better results. The jump from 50% accuracy to 95% accuracy in Sebastian’s live coding session demonstrates the power of this iterative approach and the potential for significant performance gains through fine-tuning.</p>
+</section>
+<section id="potential-improvements-and-further-experiments" class="level2">
+<h2 class="anchored" data-anchor-id="potential-improvements-and-further-experiments"><strong>Potential Improvements and Further Experiments</strong></h2>
+<p>To further optimize the model’s performance and generalize the fine-tuning approach to other tasks and datasets, Sebastian explored the following potential improvements and experiments:</p>
+<ul>
+<li>Trying different learning rates and optimizers
+<ul>
+<li>The choice of learning rate and optimizer can have a significant impact on the model’s convergence speed and final performance. Experimenting with different learning rates (e.g., higher or lower values) and alternative optimizers (e.g., SGD, RMSprop) can help find the optimal configuration for the specific task.</li>
+</ul></li>
+<li>Adjusting the number of frozen layers
+<ul>
+<li>While freezing the majority of the layers helps prevent overfitting and reduces computational cost, it may also limit the model’s ability to adapt to the specific task. Experimenting with unfreezing more layers or using a gradual unfreezing scheme can allow for more fine-grained adaptation while still benefiting from the pre-trained weights.</li>
+</ul></li>
+<li>Experimenting with other pre-trained LLMs (e.g., BERT, RoBERTa)
+<ul>
+<li>GPT-2 is just one of many powerful pre-trained language models available. Trying out other models, such as BERT (Bidirectional Encoder Representations from Transformers) or RoBERTa (Robustly Optimized BERT Pretraining Approach), can provide different insights and potentially lead to better performance on certain tasks.</li>
+</ul></li>
+<li>Fine-tuning the model on larger datasets
+<ul>
+<li>The size and quality of the dataset play a crucial role in the model’s performance. When available, fine-tuning the model on larger datasets can help the model learn more robust and generalizable representations. However, it’s important to ensure that the larger dataset is still relevant to the task at hand and properly labeled.</li>
+</ul></li>
+<li>Applying the fine-tuning approach to other text classification tasks
+<ul>
+<li>The fine-tuning approach demonstrated in this live coding session can be applied to a wide range of text classification tasks, such as sentiment analysis, topic classification, or intent recognition. Experimenting with different datasets and tasks can validate the effectiveness of the approach and expand its applicability.</li>
+</ul></li>
+</ul>
+<p>By exploring these variations and iteratively improving the fine-tuning process, practitioners can unlock the full potential of pre-trained language models and develop highly accurate and efficient solutions for a wide range of NLP problems.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion"><strong>Conclusion</strong></h2>
+<p>Sebastian’s live coding session provides a hands-on demonstration of fine-tuning GPT-2 for spam classification. The key takeaways from this session include:</p>
+<ol type="1">
+<li>Fine-tuning pre-trained LLMs is a powerful and cost-effective technique for adapting them to specific tasks.</li>
+<li>The process involves modifying the model architecture, freezing layers, and training on task-specific data.</li>
+<li>Evaluation is crucial for monitoring the model’s performance and making improvements.</li>
+<li>Fine-tuned LLMs can achieve high accuracy on specific tasks, such as spam classification.</li>
+<li>Experimenting with different model sizes and architectures can lead to better performance.</li>
+<li>Iterative fine-tuning, evaluation, and adjustments can result in significant performance gains, as demonstrated by the improvement from 50% to 95% accuracy in Sebastian’s session.</li>
+</ol>
+<p>By following the steps outlined in this blog post and experimenting with different techniques, practitioners can apply the power of fine-tuned LLMs to their own projects and unlock new possibilities in natural language processing.</p>
+<p>If you enjoyed this, you can follow Sebastian on twitter <a href="https://x.com/rasbt">here</a> and Hugo <a href="https://x.com/hugobowne">here</a>. You can also subscribe to Hugo’s fortnightly <a href="https://hugobowne.substack.com/">Vanishing Gradients Newsletter here</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

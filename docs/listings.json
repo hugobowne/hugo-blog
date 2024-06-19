@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/building-llms/index.html",
+      "/posts/fine-tuning-llms-gpt-2/index.html",
       "/posts/local-llms/index.html",
       "/posts/gen-ai-atomic-units/index.html",
       "/posts/llm-productivity/index.html",
