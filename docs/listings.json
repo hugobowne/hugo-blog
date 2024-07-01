@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/42-Lessons-in-AI/index.html",
       "/posts/fine-tuning-llms-gpt-2/index.html",
       "/posts/building-llms/index.html",
       "/posts/local-llms/index.html",
